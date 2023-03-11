@@ -1,0 +1,6 @@
+https://www.geeksforgeeks.org/accumulate-and-partial_sum-in-c-stl-numeric-header/
+https://www.geeksforgeeks.org/important-shortcuts-competitive-programming/
+https://www.google.com/search?q=can+auto+be+used+as+a+return+type&oq=can+auto+be+used+as+a+return+type&aqs=chrome..69i57j33i160l2.244j0j7&sourceid=chrome&ie=UTF-8
+https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/
+https://www.geeksforgeeks.org/tuples-in-c/
+https://www.geeksforgeeks.org/different-methods-copy-c-stl-stdcopy-copy_n-copy_if-copy_backward/
