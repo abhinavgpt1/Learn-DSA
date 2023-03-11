@@ -1,0 +1,7 @@
+1 The space complexity for finding nth fibonacci number using recursion is :O(n)
+2 XOR follows associativity, A XOR A=0, A XOR 0= A
+Find the Unique Element
+Send Feedback
+Given an integer array of size 2N + 1. In this given array, N numbers are present twice and one number is present only once in the array.
+You need to find and return that number which is unique in the array.
+SOL: xor on every element of array
