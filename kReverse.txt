@@ -1,0 +1,143 @@
+/*
+Given a singly linked list of integers, reverse the nodes of the linked list 'k' at a time and return its modified list.
+ 'k' is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of 'k,' then left-out nodes, in the end, should be reversed as well.
+Example :
+Given this linked list: 1 -> 2 -> 3 -> 4 -> 5
+
+For k = 2, you should return: 2 -> 1 -> 4 -> 3 -> 5
+
+For k = 3, you should return: 3 -> 2 -> 1 -> 5 -> 4
+*/
+/****************************************************************
+ 
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+Node * reverse(Node * head){
+    if(head == NULL || head->next == NULL)
+        return head;
+    Node*newHead = reverse(head->next);
+    Node* tail = head->next;
+    tail->next = head;
+    head->next = NULL;
+    return newHead;
+}
+Node *kReverse(Node *head, int k)
+{
+	//Write your code here
+    if(head == NULL || k == 0 || k == 1)
+        return head;
+    int count = 0;
+    Node*iter = head, *prev = NULL;
+    while(iter!=NULL && count<k){
+        prev = iter;
+        iter = iter->next;
+        count++;
+    }
+    if(prev != NULL)
+    	prev->next = NULL;
+    Node *newHead = reverse(head);
+    head->next = kReverse(iter, k);
+    return newHead;
+}
+
+//former - recursively
+Node* kReverse2(Node*head,int n)
+{
+    //write your code here
+    if(head==NULL)
+        return NULL;
+    
+    if(n==0 || n==1)
+        return head;
+    
+    int count=0;
+    Node *prev=NULL;
+    Node *curr=head;
+    Node *next=head;
+    while(count!=n){
+        if(next==NULL)
+            break;
+        next=curr->next;
+        curr->next=prev;
+        
+        prev=curr;
+        curr=next;
+        count++;
+    }
+    Node *head2 = kReverse(next,n);
+    head->next=head2;
+    
+    return prev;
+}
+// iteratively
+/*
+#include<utility>
+pair<Node *, Node*> reverse(Node *head, Node *tail){
+    pair<Node*, Node*> ans;
+    // ans.first = tail; for case when 9->10->NULL => head = 9, tail = NULL...gives us wrong ans (returning head = NULL...thus losing 10,9)
+    
+    ans.second = head;
+    
+    Node * prev = NULL;
+    Node * curr = head;
+    Node * next = head;
+    while(curr != NULL){
+        next = next->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    ans.first = prev;
+    return ans;
+}
+Node * findKth(Node * head, int k){
+    int count = 1;
+    while(head != NULL && count<k){
+        head = head->next;
+        count++;
+    }
+    return head;
+}
+Node *kReverse(Node *head, int k)
+{
+	//Write your code here
+    if(k==0 || k==1)
+        return head;
+    Node * newHead = NULL;
+    Node * newTail = NULL;
+    Node * iter = head;
+    while(iter != NULL){
+        Node *kthNode = findKth(iter, k);
+        Node *kplus1Node = NULL;
+        if(kthNode != NULL)
+        {	
+            kplus1Node = kthNode->next;
+        	kthNode->next = NULL;
+        }
+        pair<Node *, Node *> p = reverse(iter,kthNode);
+        if(newHead == NULL){
+            newHead = p.first;
+            newTail = p.second;
+        }
+        else{
+            newTail->next = p.first;
+            newTail = p.second;
+        }
+        iter = kplus1Node;
+    }
+    return newHead;
+}
+*/
