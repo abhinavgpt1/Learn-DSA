@@ -1,0 +1,207 @@
+STACK
+/*
+//unlimited stack
+#include <stdio.h>
+typedef struct
+{
+    int *arr;
+    int top;
+}stack;
+int menu()
+{
+    int n;
+    printf("\n1.push\n2.pop\n3.show\n4.exit\n");
+    scanf("%d",&n);
+    return n;
+}
+void show(stack *s)
+{
+    if(s->top==-1)
+    printf("###Stack empty###\n");
+    else
+    {
+    int i;
+    for(i=0;i<=s->top;i++)
+    printf("%d",(s->arr)[i]);
+    printf("\n");
+    }
+}
+void push(stack *s, int n)
+{
+    s->arr[++s->top]=n;
+}
+int pop(stack *s)
+{
+    if(s->top==-1)
+        return -1;
+    return s->arr[s->top--];
+}
+
+int main() 
+{
+    stack s;
+    s.top=-1;
+    s.arr=(int*)malloc(sizeof(int));
+    push(&s,1);
+    push(&s,2);
+    show(&s);
+    push(&s,3);
+    printf("%dpopped----\n",pop(&s));
+    printf("%dpopped----\n",pop(&s));
+    show(&s);
+    printf("%dpopped----\n",pop(&s));
+    show(&s);
+    
+}
+*/
+
+/*
+//finite length stack(default)
+#include <stdio.h>
+#define SIZE 10
+typedef struct
+{
+    int arr[SIZE];
+    int top;
+}stack;
+int menu()
+{
+    int n;
+    printf("\n1.push\n2.pop\n3.show\n4.exit\n");
+    scanf("%d",&n);
+    return n;
+}
+void show(stack *s)
+{
+    if(s->top==-1)
+    printf("\n###Stack empty###");
+    else
+    {
+    int i;
+    for(i=0;i<=s->top;i++)
+    printf("%d<-",(s->arr)[i]);
+    printf("\n");
+    }
+}
+void push(stack *s, int n)
+{
+    if(s->top==SIZE-1)
+    printf("\nStack overflow");
+    else
+    s->arr[++s->top]=n;
+}
+int pop(stack *s)
+{
+    if(s->top==-1)
+        return -1;
+    return s->arr[s->top--];
+}
+
+int main()
+{
+    stack s;
+    s.top=-1;
+    while(1)
+    {
+    switch(menu())
+    {
+        case 1:
+            {
+
+
+            int no;
+            printf("\nEnter element : ");
+            scanf("%d",&no);
+            if(no!=-1)
+            push(&s,no);
+            else
+            printf("\nSrry can't push -1");
+            break;
+            }
+        case 2:
+            {
+
+
+            int q=pop(&s);
+            if(q==-1)
+            printf("\nStack is empty");
+            else
+            printf("\n%d popped---",q);
+            break;
+            }
+        case 3:
+            show(&s);
+            break;
+        case 4:
+            exit(0);
+            break;
+        default:
+            printf("Wrong input");
+            break;
+    }
+    getch();//to get an input from keyboard
+    }
+}
+*/
+//NOTE:
+/* to form a fixed length stack(length decided on run time)...use global static SIZE...OR make s.arr dynamically of length n and pass this n everywhere(since it's impossible to determine the length of a dynamic array)*/
+
+
+/* USING LL
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node 
+{
+    int info;
+    struct node *next;
+};
+struct node *createNode()
+{
+    struct node *temp=(struct node *)malloc(sizeof(struct node));
+    temp->next=NULL;
+    scanf("%d",&temp->info);
+    return temp;
+}
+void push(struct node **baapTop)
+{
+    struct node *temp=createNode();
+    temp->next=*baapTop;
+    *baapTop=temp;
+}
+struct node* pop(struct node **baapTop)
+{
+    if(*baapTop==NULL)
+    return NULL;
+    struct node *temp=*baapTop;
+    *baapTop=(*baapTop)->next;
+    return temp;
+}
+void printStack(struct node **baapTop)
+{
+    struct node *iter=*baapTop;
+    while(iter!=NULL)
+    {
+        printf("->%d",iter->info);
+        iter=iter->next;
+    }
+}
+struct node* topStack(struct node **baapTop)
+{
+    if(*baapTop==NULL)
+    return NULL;
+    struct node *temp=*baapTop;
+    return temp;
+}
+
+int main() {
+	struct node *top=NULL;
+	push(&top);
+	push(&top);
+	push(&top);
+	printf("\n%d\n",topStack(&top)->info);
+	printStack(&top);
+	return 0;
+}
+*/
+//make a stack array delete function too(wherever possible)

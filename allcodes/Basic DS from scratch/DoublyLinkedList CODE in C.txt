@@ -1,0 +1,70 @@
+/*NOTE:
+1.//from ppt//List manipulations are slower (because more links must be changed)
+2.//from ppt//Greater chance of having bugs (because more links must be manipulated)
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node 
+{
+    int info;
+    struct node *next;
+    struct node *prev;
+};
+struct node *createNode()
+{
+    struct node *temp=(struct node*)malloc(sizeof(struct node));
+    scanf("%d",&temp->info);
+    temp->next=temp->prev=NULL;
+    return temp;
+}
+void printDLL(struct node *head)
+{
+    if(head==NULL)
+    printf("DLL is empty");
+    else
+    {
+        while(head!=NULL)
+        {
+        printf("<-%d->",head->info);
+        head=head->next;
+        }
+    }
+}
+void insertNode(struct node **baapHead)//at end
+{
+    struct node *temp=createNode();
+    if(*baapHead==NULL)
+    *baapHead=temp;
+    else
+    {
+        struct node *iter=*baapHead;
+        while(iter->next!=NULL)
+        {
+            iter=iter->next;
+        }
+        iter->next=temp;
+        temp->prev=iter;
+    }
+}
+struct node * deleteNode(struct node **baapHead)//from beginning
+{
+    struct node *temp=*baapHead;
+    if(*baapHead!=NULL)
+    {
+    *baapHead=(*baapHead)->next;
+    temp->next=(*baapHead)->prev=NULL;
+    }
+    return temp;
+}
+int main() 
+{
+    struct node *head=NULL;
+    insertNode(&head);
+    insertNode(&head);
+    insertNode(&head);
+    printDLL(head);
+    struct node *use=deleteNode(&head);
+    printf("\n%d\n",use->info);
+    printDLL(head);
+	return 0;
+}

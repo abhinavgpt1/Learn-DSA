@@ -1,0 +1,87 @@
+/*
+Given a string containing just the characters '(' and ')', 
+find the length of the longest valid (well-formed) parentheses substring.
+*/
+// 100% faster
+class Solution
+{
+public:
+    Solution()
+    {
+        ios_base::sync_with_stdio(0);
+        cin.tie(NULL);
+    }
+    
+    int longestValidParentheses(string s)
+    {
+        if(s.length() == 0) 
+            return 0;
+        int len = s.length();    
+        int count = 0; 
+        stack<int> indexStack; 
+        indexStack.push(-1); 
+        
+        for(int i = 0; i < len; i++)   
+            if(s[i] == '(')
+                indexStack.push(i);
+            else if(s[i] == ')')
+            {
+                if(!indexStack.empty()) 
+                {
+                    indexStack.pop();
+                    if(indexStack.empty())
+                        indexStack.push(i);
+                    else
+                        count = max(count, i - indexStack.top());
+                }
+            }    
+        return count;
+    }
+};
+
+//my solution - 44% faster
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        
+        stack<pair<char, int>> stk;
+        vector<int> maxvalidity(s.length(), 0);
+        
+        for(int i =0; i<s.length(); i++){
+            if(s[i] == '(')
+                stk.push({s[i], i});
+            else{
+                if(stk.empty()){
+                    maxvalidity[i] = -1;
+                    continue;
+                }
+                char top = 'a';
+                int local = 0;
+                while(top != '('){
+                    pair<char, int> tmp= stk.top();
+                    top = tmp.first;
+                    stk.pop();
+                    local++;
+                }
+                maxvalidity[i] = local + 1;//2 always
+            }
+        }
+        while(!stk.empty()){
+            pair<char, int> tmp = stk.top();
+            stk.pop();
+            maxvalidity[tmp.second] = -1;
+        }
+        
+        int glob = 0, local = 0;
+        
+        for(int i=0; i<maxvalidity.size(); i++){
+            
+            if(maxvalidity[i] < 0)
+                local = 0;
+            else
+                local += maxvalidity[i];
+            glob = max(local, glob);
+        }
+        return glob;
+    }
+};

@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+
+//counting steps and telling the sequence
+
+int toh(int n,char start,char aux,char end )
+{
+    if(n==1)
+    {
+        cout<<start<<" "<<end<<endl;
+        return 1;
+    }
+    
+    int c=toh(n-1,start,end,aux);//moving n-1 disks to one peg(aux)
+    
+    c++;//moving nth peg(takes one move from start to end)
+    cout<<start<<" "<<end<<endl;
+    
+    c+=toh(n-1,aux,start,end);//moving n-1 disks back onto nth disk from aux to end
+    
+    return c;
+}
+int main()
+{
+    int noOfDisks;
+    cin>>noOfDisks;
+    int steps=toh(noOfDisks,'a','b','c');
+    cout<<steps;
+}

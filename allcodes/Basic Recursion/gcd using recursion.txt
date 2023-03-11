@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int gcd(int dividend,int divisor)
+{
+    if(divisor==0)
+    return dividend;
+    
+    return gcd(divisor,dividend%divisor);
+}
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    int k=gcd(n,m);//no checking of order is required
+    cout<<k;
+}

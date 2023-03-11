@@ -1,0 +1,196 @@
+/*
+NOTE:1.it is important to set next to null after deletion...for memory reusage
+//from ppt//NOTE: free not enough -- does not change memory      Element still appears to be in list but C might give memory away      in next request. Need to reset the pointer to NULL */ 
+2.iterator is called walker
+//from ppt//Need a “walker” to “walk” down the list till end is reached 
+3.to change the head pass its double pointer or return the altered head
+//from ppt
+/*Eptr insertE(Eptr start, dataType ndata)
+{  	Eptr last = start;
+   	/*last is walker variable*/
+if (last == NULL)  /*list is empty, add at start*/ 
+  	return newNode(ndata, NULL);  
+else {  while (last->next != NULL)  /*find last node*/   
+	last = last->next;
+	last->next = newNode(ndata, NULL);
+	return start;  /*START DOESN'T CHANGE*/  } 
+}*/
+4.Can we perform binary search given elements are sorted? 
+• Yes, but the performance will be similar to linear search 
+5. Dummy Head Node = copy of head node
+*/
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+  int info;
+  struct node *next;
+};
+struct node * createNode()
+{
+    struct node *tem=(struct node *)malloc(sizeof(struct node));
+    printf("Enter value");
+    scanf("%d",&tem->info);
+    tem->next=NULL;
+    return tem;
+}
+int menu()
+{
+    int n;
+    printf("\n1.insert\n2.delete\n3.insert at n\n4.delete from n\n5.print\n6.exit\n");
+    scanf("%d",&n);
+    return n;
+}
+void printLinkedList(struct node *head)
+{
+    if(head==NULL)
+        printf("LL empty");
+    while(head!=NULL)
+    {
+        printf("%d->",head->info);
+        head=head->next;
+    }
+    printf("\n");
+}
+//DOUBLE POINTER wala IDEA IS MUCH BETTER
+struct node * insertNode(struct node *head)//at last
+{
+    struct node *temp=createNode();
+    if(head==NULL)
+    {
+        head=temp;
+    }
+    else
+    {
+        struct node *iter=head;
+        while(iter->next!=NULL)
+        {
+            iter=iter->next;
+        }
+        iter->next=temp;
+    }
+    return head;
+}
+struct node * deleteNode(struct node **head)//return node from beginning
+{
+    if(*head!=NULL)
+    {
+    struct node* temp=*head;
+    *head=(*head)->next;
+	temp->next=NULL;
+    return temp;}
+    printf("NULL h head");
+    return NULL;
+}
+void insertNodeN(struct node **baapHead,int n)//at nth place
+{
+    if(n>0)
+    {
+    struct node *temp=createNode();
+    if(!temp)   return;
+    if(*baapHead!=NULL)
+    {
+        if(n==1)
+        {
+            temp->next=*baapHead;
+            *baapHead=temp;
+        }
+        //since we stop the iter at one step behind the node 'n'
+        else
+        {
+        struct node *iter=*baapHead;
+        int cnt=1;//after every loop iter points to 'cnt' node
+        while(cnt!=n-1)
+        {
+            cnt++;
+            iter=iter->next;//cnt no. and node to which iter will point will be same
+
+            if(iter==NULL)//intentionally it is placed below statements to prevent case when n=lengthof ll+2
+            {
+                printf("Length of list is less than n");
+                return;
+            }
+        }
+        temp->next=iter->next;
+        iter->next=temp;
+        }
+    }
+    else
+        *baapHead=temp;
+    }
+}
+struct node* deleteNodeN(struct node **baapHead,int n)//nth node
+{
+    if(n>0)
+    {
+    if(*baapHead==NULL)
+    {printf("LL empty\n");
+    return NULL;}
+    else
+    {
+        if(n==1)
+        return deleteNode(baapHead);
+        //since we stop the iter at one step behind the node 'n'
+        else
+        {
+            struct node *iter=*baapHead;
+            int count=1;//after every loop iter points to 'count' node
+            while(count!=n-1)
+            {
+                count++;
+                iter=iter->next;
+                if(iter->next==NULL)
+                {
+                    printf("Length of list is less than n");
+                return NULL;
+                }
+            }
+            struct node *destroy=iter->next;
+            iter->next=iter->next->next;
+            destroy->next=NULL;
+            return destroy;
+        }
+    }
+    }
+    else
+    {
+        printf("N is WRONG");
+        return NULL;
+    }
+}
+int main()
+{
+	struct node *head=NULL;
+	int n=0;
+    while(1)
+    {
+        n=menu();
+        switch(n)
+        {
+            int i;
+            case 1:
+            head=insertNode(head);
+            break;
+            case 2:
+            deleteNode(&head);
+            break;
+            case 3:
+            printf("At what node no. : ");
+            scanf("%d",&i);
+            insertNodeN(&head,i);
+            break;
+            case 4:
+            printf("At what node no. : ");
+            scanf("%d",&i);
+            deleteNodeN(&head,i);
+            break;
+            case 5:printLinkedList(head);
+            break;
+            case 6:
+            exit(0);break;
+            default:
+            printf("Wrong Choice");
+        }
+    }
+}

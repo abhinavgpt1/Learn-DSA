@@ -1,0 +1,215 @@
+/*//binary search tree
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int info;
+  struct node *left;
+  struct node *right;
+};
+void traversal(struct node *root)
+{
+    if(root==NULL)
+    return;
+    
+    printf("%d ",root->info);//preorder
+    traversal(root->left);
+    traversal(root->right);
+    
+}
+struct node *createNode()
+{
+    struct node *temp=(struct node *)malloc(sizeof(struct node));
+    //printf("Enter value:");
+    scanf("%d",&temp->info);
+    temp->left=temp->right=NULL;
+    return temp;
+}
+void insert(struct node **baapRoot,struct node *temp)
+{
+    if(*baapRoot==NULL)
+    *baapRoot=temp;
+    else
+    {
+        if(temp->info<=(*baapRoot)->info)
+        {
+            insert(&(*baapRoot)->left,temp);
+        }
+        else
+        {
+            insert(&(*baapRoot)->right,temp);
+        }
+    }
+}
+int find(struct node *root,int n) 
+{
+    if(root==NULL)
+    return -1;
+    if(root->info==n)
+    return 1;
+    if(n<=root->info)
+    find(root->left,n);
+    else
+    find(root->right,n);
+}
+struct node *deleteNode(struct node **baapRoot,int key)
+{
+    if(*baapRoot==NULL)
+    return NULL;
+    else if(key<=(*baapRoot)->info)
+    return deleteNode(&(*baapRoot)->left,key);
+    else if(key>(*baapRoot)->info)
+    return deleteNode(&(*baapRoot)->right,key);
+    else
+    {
+        struct node *lft=maxNode((*baapRoot)->left;
+        if(lft==NULL)
+        {
+            struct node *rght=minNode((*baapRoot)->right;
+        }
+        else
+        {
+            (*baapRoot)->info=lft->info;
+            deleteNode(&(*baapRoot)->left,(*baapRoot)->info);
+        }
+    }
+}
+//find ke liye function
+int main()
+{
+    struct node *root=NULL;
+    insert(&root,createNode());
+    insert(&root,createNode());
+    insert(&root,createNode());
+    insert(&root,createNode());
+    insert(&root,createNode());
+    insert(&root,createNode());
+    insert(&root,createNode());
+    traversal(root);
+    printf("\n");
+    printf("%d",find(root,17));   
+}
+*/
+/*//BINARY TREE
+#include<stdio.h>
+#include<stdlib.h>
+struct node;
+typedef struct
+{
+    int front;
+    int rear;
+    struct node **arr;
+}queue;
+struct node	//DEFINE STRUCTURES AT FIRST ONLY(i.e. before a function which uses any of its members)
+{
+    int info;
+    struct node *left;
+    struct node *right;
+};
+void enqueue(queue *q,struct node *nd)
+{
+    if(q->front==-1)
+    q->front=0;
+    q->arr[++q->rear]=nd;
+}
+int isEmpty(queue *q)
+{
+    if(q->front==-1||q->front==q->rear+1)
+    return 1;
+    return 0;
+}
+struct node *dequeue(queue *q)
+{
+    if(isEmpty(q))
+    return NULL;
+    return q->arr[q->front++];
+}
+void printQueue(queue *q)
+{
+    if(!isEmpty(q))
+    {
+        int i;
+        for(i=q->front;i<=q->rear;i++)
+        printf("%d ",(q->arr[i])->info);
+//this wouldn't work if struct node is defined below it
+//instead the error it will give will be:
+//error: dereferencing pointer to incomplete type 'struct node'
+        printf("\n");
+    }
+}
+struct node *createNode()
+{
+    struct node *temp=(struct node *)malloc(sizeof(struct node));
+    scanf("%d",&temp->info);
+    temp->left=temp->right=NULL;
+    return temp;
+}
+void insertNode(struct node **baapRoot)
+{
+    struct node *temp=createNode();
+    if(*baapRoot==NULL)
+    {*baapRoot=temp;return;}
+    else  
+    {
+        queue *q=(queue *)malloc(sizeof(queue));
+        q->front=q->rear=-1;
+        q->arr=(struct node **)malloc(sizeof(struct node *));
+        enqueue(q,*baapRoot);
+        while(!isEmpty(q))
+        {
+            struct node *iter=dequeue(q);
+            if(iter->left==NULL)
+            {iter->left=temp;
+            break;}
+            else if(iter->right==NULL)
+            {iter->right=temp;
+            break;}
+            enqueue(q,iter->left);
+            enqueue(q,iter->right);
+            //printQueue(q);
+        }
+        free(q->arr);
+        free(q);
+    }
+}
+void preorder_traversal(struct node *root)
+{
+    if(root==NULL)
+    return;
+    
+    printf("%d ",root->info);//preorder
+    preorder_traversal(root->left);
+    preorder_traversal(root->right);
+    
+}
+void level_traversal(struct node *root)
+{
+    queue q={-1,-1,(struct node **)malloc(sizeof(struct node *))};
+    enqueue(&q,root);
+    while(!isEmpty(&q))
+    {
+        struct node *iter=dequeue(&q);
+        printf("%d ",iter->info);
+        if(iter->left!=NULL)
+        enqueue(&q,iter->left);
+        if(iter->right!=NULL)
+        enqueue(&q,iter->right);
+    }
+    
+}
+int main()
+{
+    struct node *root=NULL;
+    insertNode(&root);
+    insertNode(&root);
+    insertNode(&root);
+    insertNode(&root);
+    insertNode(&root);
+    insertNode(&root);
+    insertNode(&root);
+    // preorder_traversal(root);
+    level_traversal(root);
+    //printf("%d",root->info);
+    
+}
+*/
