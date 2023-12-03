@@ -4,6 +4,7 @@
 // striver's video on directed graph cycle detection
 // https://www.youtube.com/watch?v=uzVUw90ZFIg&list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw&index=11
 
+// Solution 1
 class Solution {
   public:
     bool hasCycle(vector<int> adj[], int index, vector<bool> &visited,  vector<bool> &isNotCyclic){
@@ -44,3 +45,74 @@ class Solution {
     // vertices on line 28 : to check if they are visited or not and then to run dfs on the,
     // edges in total all are visited after exhaustive run on graph via isCyclicComponent function
 // space = O(V)
+
+// Solution 2
+class Solution {
+    bool isCycle(vector<int> adj[], int index, vector<int> &visited){
+        if(visited[index] == 1)
+            return true;
+        visited[index] = 1;
+        for(int x: adj[index]){
+            if(visited[x] == -1)
+                continue;
+            if(isCycle(adj, x, visited))
+                return true;
+        }
+        visited[index] = -1;
+        return false;
+    }
+  public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+        vector<int> visited(V, 0);
+        for(int i=0; i<V; i++){
+            if(!visited[i] && isCycle(adj, i, visited))
+                return true;
+        }
+        return false;
+    }
+};
+
+// Solution 3 - Kahn's Algo
+class Solution {
+  public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+        //usign BFS - Kahn's algo - topological sort BFS
+        
+        //will work for components in graph
+        
+        // O(E)
+        vector<int> indegree(V, 0);
+        for(int i=0; i<V; i++){
+            for(int j=0; j<adj[i].size(); j++){
+                indegree[adj[i][j]]++;
+            }
+        }
+        
+        //O(V)
+        queue<int> pending;
+        for(int i=0; i<V; i++){
+            if(indegree[i] == 0)
+                pending.push(i);
+        }
+        
+        int cnt = 0;
+        
+        // O(V + E) - not 2E since directed graph
+        while(!pending.empty()){
+            int front = pending.front();
+            pending.pop();
+            
+            for(int i=0; i<adj[front].size(); i++){
+                indegree[adj[front][i]]--;
+                if(indegree[adj[front][i]] == 0)
+                    pending.push(adj[front][i]);
+            }
+            cnt++;
+        }
+        //T(n) = O(V + E)
+        //S(n) = O(V)
+        return (cnt != V);
+    }
+};
