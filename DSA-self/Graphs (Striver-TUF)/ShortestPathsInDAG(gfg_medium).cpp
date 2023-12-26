@@ -15,6 +15,7 @@
 
 // (2) DFS is an exponential soln. and will TLE
 
+// Below soln. is Dijkstra itself, which can be improved by using set
 class Solution {
     // Well separation of concerns
     int findReachableMinNode(vector<int> &dist, vector<bool> &visited, int N){
