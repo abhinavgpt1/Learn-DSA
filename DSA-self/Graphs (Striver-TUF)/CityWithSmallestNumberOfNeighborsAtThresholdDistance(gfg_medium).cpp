@@ -65,6 +65,7 @@ class Solution {
             int cntCitiesWithinThreshold = 0;
             for(int dist: minDist[i]){
                 if(dist <= distanceThreshold)
+                    // considers ith city as well, since minDist[i][i] = 0
                     cntCitiesWithinThreshold++;
             }
             if(minCitiesWithinThresholdCnt > cntCitiesWithinThreshold){
@@ -74,6 +75,7 @@ class Solution {
                 cityWithMinCitiesWithinThreshold = i; //taking city with higher number
             }
         }
+        // minCitiesWithinThresholdCnt = minCitiesWithinThresholdCnt - 1; //subtracting the case of going from a city to the same city
         return cityWithMinCitiesWithinThreshold;
     }
 };
