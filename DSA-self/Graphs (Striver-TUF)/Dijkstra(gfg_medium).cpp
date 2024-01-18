@@ -20,9 +20,9 @@ class Solution {
         pending.insert({0, S});
         while(!pending.empty()){ // O(V)
             set<pair<int, int>>::iterator it = pending.begin();
-            pending.erase(it); //log(V)
             int node = it->second;
             int distNode = it->first;
+            pending.erase(it); //log(V) // Do this step only after retrieving values as compilers can give issue
             dist[node] = distNode;
             
             for(vector<int> vec: adj[node]){ //O(V) == Ea

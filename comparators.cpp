@@ -81,10 +81,16 @@ int main(){
     // sort(vect.begin(), vect.end(), customComparatorFunctionGreat);//sort in descending order
     // sort(vect.begin(), vect.end(), customComparatorClassLess());//sort in ascending order
     sort(vect.begin(), vect.end(), customComparatorClassGreat());//sort in descending order
-    
+
     for(int x: vect)
         cout<<x<<" ";
     cout<<endl<<endl;
+// Output:
+// -------
+// Min heap: 10 20 40 90 
+// Max heap: 90 40 20 10 
+// Vector sort (Desc.): 40 30 20 10
+// ----------------------------------
 
     cout<<"************  Lesson: greater<int> is a functor (comparator class) and greater<int>() creates an instance of it - similar to comparator function  **********."<<endl<<endl;
 
@@ -102,7 +108,10 @@ int main(){
         cout<<"{"<<defmaxheappairs.top().first << ":"<<defmaxheappairs.top().second<<"}, ";
         defmaxheappairs.pop();
     }
-    cout<<endl;
+    cout<<endl; 
+// Output:
+// -------
+// Default bahavior of pair in priority queue: {90:4}, {90:3}, {40:8}, {30:5}, {20:1}, {10:5},
 
     cout<<"Default behavior of pair in priority queue with greater<int, int>: ";
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> defminheappairs;
@@ -121,6 +130,9 @@ int main(){
     }
     
     cout<<endl<<endl;
+// Output:
+// -------
+// Default behavior of pair in priority queue with greater<int, int>: {10:1}, {10:5}, {20:1}, {30:5}, {40:8}, {90:3}, {90:4},
 
     cout<<"Q- WAP to sort pair of values in ascending order of pair's second value. If they are same sort by Desc. value of first value in pair."<<endl;
     cout<<"Ans: Custom sort in prioity queue"<<": ";
@@ -133,14 +145,14 @@ int main(){
     minheappairs.push({20, 1});
     minheappairs.push({40, 8});
 
-    //output: 20:1, 90:3, 90: 4, 60:5, 10:5, 40:8
     while(!minheappairs.empty()){
         cout<<"{"<<minheappairs.top().first << ":"<<minheappairs.top().second<<"}, ";
         minheappairs.pop();
     }
     cout<<endl<<endl;
-
-    cout<<"**********  Lesson: "<<customComparatorClassPair_LessSecond_GreatFirst_Value().lesson<<"  **********"<<endl<<endl;
+// Output:
+// -------
+// Ans: Custom sort in prioity queue: {20:1}, {90:3}, {90:4}, {60:5}, {10:5}, {40:8}, 
 
     cout<<"Same Custom Comparator on sort: ";
     vector<pair<int, int>> vecPairs;
@@ -160,4 +172,5 @@ int main(){
     }
     cout<<endl<<endl;
     cout<<"**********  Lesson: < and > in comparators work as asc. and desc. order for sort  **********"<<endl<<endl;
+    cout<<"**********  Lesson: "<<customComparatorClassPair_LessSecond_GreatFirst_Value().lesson<<"  **********"<<endl<<endl;
 }

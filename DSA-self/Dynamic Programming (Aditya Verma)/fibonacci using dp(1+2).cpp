@@ -66,7 +66,7 @@ int main()
 	return 0;
 }
 
-//using top-down approach
+//using bottom-up (officially said so (In order to solve big problem, we solve bottom aka low level problems)) approach
 #include<iostream>
 #include<cstring>//for memset
 using namespace std;

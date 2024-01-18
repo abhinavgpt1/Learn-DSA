@@ -1,11 +1,16 @@
 // right to left
 // arr : [], sum = 0 - true
 // arr : [2,3,4], sum = 0 - true
+
+// WRONG: https://www.geeksforgeeks.org/subset-sum-problem-osum-space/ which promises S(n) = O(sum)*1 
+// We need to store w.r.t. element, eg. [1,2,5]
+
 #include <bits/stdc++.h>
 using namespace std;
 bool checkSubsetSum(int arr[], int n, int sum){
     bool dp[1000][1000];
     memset(dp, 0, sizeof(dp));
+    // For sum=0, {} is a possible soln. given any arr
     for(int i=1; i<=n; i++){
         dp[i][0] = 1;
     }
