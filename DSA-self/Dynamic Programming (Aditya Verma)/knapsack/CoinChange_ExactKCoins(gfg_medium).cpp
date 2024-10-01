@@ -15,7 +15,7 @@
  */
 
 // link: https://www.geeksforgeeks.org/problems/another-coin-change-problem--170647/0
-// article: Check editorial in this question
+// article: leetcode editorial, other solutions, https://www.geeksforgeeks.org/coin-change-problem-with-limited-coins/
 
 // Solution 1: Bottom-up: O(N*K*Target), O(K*Target)
 class Solution {

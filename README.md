@@ -1,7 +1,6 @@
-Best questions are bookmarked in profiles and very limited addition would be done in these sections
-1. DSA-self > Graphs (Striver-TUF) - source: https://www.youtube.com/playlist?list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn
-2. DSA-self > Coding Platforms (Leetcode, GFG)
+This repo includes
+* All course questions from Coding Ninja's "DSA in C++" course
+* Basic DSA questions & questions from different coding platforms and youtube series
+* Some additional questions/programs and concept urls
 
-Possible additions to sections:
-1. DSA-coding-ninjas
-2. DSA-self > Dynamic Programming (Aditya Verma)
+Not much addition is expected in this repo, as the questions are bookmarked in platforms profiles like gfg and leetcode.

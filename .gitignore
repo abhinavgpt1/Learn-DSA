@@ -1,0 +1,7 @@
+# directories
+.cph
+.vscode
+.idea
+
+# files
+*.exe
