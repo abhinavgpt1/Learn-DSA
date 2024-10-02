@@ -25,6 +25,8 @@ Sample Output 2 :
 1 1 1 1
 */
 
+//-> Clean approaches @StockSpan(gfg_medium).cpp
+
 //method 1: O(n^2)
 #include<stack>
 int* stockSpan(int *price, int size) {
