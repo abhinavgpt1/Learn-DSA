@@ -5,7 +5,7 @@ using namespace std;
  * Do not expose both unionBySize and unionByRank functions.
  * Keep parent, size, rank private
  * Expose functions like findParent, unionBySize/Rank only. Others mentioned are unneccessary generally.
- * eg. see NumOfProvinces(gfg_medium).cpp
+ * eg. see 07_NumOfProvinces(gfg_medium).cpp
  * 
  */
 class DisjointSet
