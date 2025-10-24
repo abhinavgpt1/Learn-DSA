@@ -1,5 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+/**
+ * Do not expose both unionBySize and unionByRank functions.
+ * Keep parent, size, rank private
+ * Expose functions like findParent, unionBySize/Rank only. Others mentioned are unneccessary generally.
+ * eg. see 07_NumOfProvinces(gfg_medium).cpp
+ * 
+ */
 class DisjointSet
 {
     vector<int> rank; // measures the height of tree, ith node being the root
