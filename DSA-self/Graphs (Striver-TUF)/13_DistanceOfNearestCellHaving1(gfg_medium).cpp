@@ -81,9 +81,10 @@ int findMyAns(vector<vector<int>> &grid, int x, int y, vector<vector<int>> &ans)
             pending.push({-1,-1});
         }
         
-        // TODO:traverse of adj list
-        // TODO:check if ans[xn][yn] exist
-        // TODO:if yes, return ans + 1;
+        // further steps:
+        // - traverse of adj list
+        // - check if ans[xn][yn] exist
+        // - if yes, return ans + 1;
         
     }
     return level-1;

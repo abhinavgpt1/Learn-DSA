@@ -118,8 +118,9 @@ int main() {
 	cout << "Level 2:" << endl;
 	printAtLevelK(root, 2);
 	preorder(root);
-	// TODO delete the tree
 	delete root;
-	//deleteTree(root);
+
+	// delete a generic tree, given root.
+	// deleteTree(root);
 }
 
