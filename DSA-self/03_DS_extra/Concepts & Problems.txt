@@ -1,0 +1,72 @@
+Concepts
+========
+https://www.geeksforgeeks.org/sorting-a-map-by-value-in-c-stl/
+https://www.geeksforgeeks.org/accumulate-and-partial_sum-in-c-stl-numeric-header/
+https://www.geeksforgeeks.org/important-shortcuts-competitive-programming/
+https://www.google.com/search?q=can+auto+be+used+as+a+return+type&oq=can+auto+be+used+as+a+return+type&aqs=chrome..69i57j33i160l2.244j0j7&sourceid=chrome&ie=UTF-8
+https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/
+https://www.geeksforgeeks.org/tuples-in-c/
+https://www.geeksforgeeks.org/different-methods-copy-c-stl-stdcopy-copy_n-copy_if-copy_backward/
+https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/
+
+DSA Problems
+============
+======EASY=========
+https://www.geeksforgeeks.org/count-negative-numbers-in-a-column-wise-row-wise-sorted-matrix/
+https://www.geeksforgeeks.org/backtracking-to-find-all-subsets/
+https://www.geeksforgeeks.org/minimum-sum-of-two-integers-whose-product-is-strictly-greater-than-n/
+https://www.geeksforgeeks.org/maximum-distinct-elements-removing-k-elements/
+https://www.geeksforgeeks.org/minimum-number-of-distinct-elements-after-removing-m-items/
+Given an array of size n, a triplet (a[i], a[j], a[k]) is called a Magic Triplet if a[i] < a[j] < a[k] and i < j < k.  Count the number of magic triplets in a given array.
+https://www.geeksforgeeks.org/window-sliding-technique/
+https://www.geeksforgeeks.org/find-maximum-sum-triplets-array-j-k-ai-aj-ak/	
+https://www.geeksforgeeks.org/k-largestor-smallest-elements-in-an-array/
+https://www.geeksforgeeks.org/find-index-first-1-sorted-array-0s-1s/
+https://www.geeksforgeeks.org/sort-array-wave-form-2/
+https://www.geeksforgeeks.org/find-number-zeroes/
+binary_search related:
+	https://www.geeksforgeeks.org/segregate-0s-and-1s-in-an-array-by-traversing-array-once/
+	https://www.geeksforgeeks.org/find-a-peak-in-a-given-array/
+	https://www.geeksforgeeks.org/find-the-maximum-element-in-an-array-which-is-first-increasing-and-then-decreasing/
+	https://practice.geeksforgeeks.org/problems/maximum-value-in-a-bitonic-array3001/1/?difficulty[]=0&page=1&category[]=Arrays&category[]=Matrix&query=difficulty[]0page1category[]Arrayscategory[]Matrix#
+https://www.geeksforgeeks.org/array-rotation/
+https://leetcode.com/problems/reverse-integer/
+https://www.hackerrank.com/challenges/equal-stacks/problem
+
+======MEDIUM=========
+https://www.geeksforgeeks.org/minimum-operations-required-make-row-column-matrix-equals/
+quickselect technique - https://www.cdn.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array-set-2-expected-linear-time/
+https://www.geeksforgeeks.org/count-maximum-points-on-same-line/
+https://www.geeksforgeeks.org/reverse-words-in-a-given-string/
+
+---------------------------------------------------------------------------
+
+List 1:
+-------
+[normal] https://www.hackerrank.com/challenges/insert-a-node-into-a-sorted-doubly-linked-list/problem?isFullScreen=true
+[great] https://practice.geeksforgeeks.org/problems/1a4b617b70f0142a5c2b454e6fbe1b9a69ce7861/1
+[read editorial] https://practice.geeksforgeeks.org/problems/bubble-sort/1
+[read editorial] https://practice.geeksforgeeks.org/problems/insertion-sort/1
+[little optimization] https://www.hackerrank.com/challenges/queue-using-two-stacks/problem
+[good] https://www.hackerrank.com/challenges/find-the-merge-point-of-two-joined-linked-lists/problem
+[good] https://practice.geeksforgeeks.org/problems/find-length-of-loop/1
+* revised - slow-fast, find looping point(not reqd. here though)
+* [logical way] https://www.geeksforgeeks.org/find-length-of-loop-in-linked-list/
+[great] https://practice.geeksforgeeks.org/problems/minimum-number-of-jumps-1587115620/1
+[good] https://practice.geeksforgeeks.org/problems/minimum-distance-between-two-numbers/1
+* [brainy-sol2] https://www.geeksforgeeks.org/find-the-minimum-distance-between-two-numbers/
+
+List 2:
+-------
+[innovative] https://practice.geeksforgeeks.org/problems/kth-largest-element-in-bst/1
+[good - bfs] https://practice.geeksforgeeks.org/problems/find-the-number-of-islands/1
+[optimal] https://www.cdn.geeksforgeeks.org/diameter-of-a-binary-tree-in-on-a-new-method/
+[2 approaches] https://practice.geeksforgeeks.org/problems/topological-sort/1
+[great!!] https://practice.geeksforgeeks.org/problems/rotten-oranges2536/1
+[brain teaser] https://www.hackerrank.com/challenges/time-conversion/problem
+[brain teaser] https://www.hackerrank.com/challenges/kangaroo/problem
+[good] https://practice.geeksforgeeks.org/problems/replace-os-with-xs0052/1
+[awesome - 2ways] https://practice.geeksforgeeks.org/problems/number-of-distinct-islands/1
+    * https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/graphs/number-of-distinct-island-official/ojquestion
+    * https://www.youtube.com/watch?v=7zmgQSJghpo&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=17
+[great] https://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k3101/1
