@@ -14,6 +14,7 @@ int partition(int input[],int st, int en)
     input[st]=temp;
     
     //segregating
+    // NOTE: Check SortingAlgos_StrategyDP.java for efficient quickSort - runs in a single loop [st aka 0, end]
     int i=st,j=en;
     while(i!=index && j!=index)
     {
