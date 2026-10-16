@@ -177,6 +177,7 @@ class MyArrayList<T> {
 
     public void sort(Comparator<T> c) {
         // IMP: Only sort elements up to size, not the entire array
+        // Arrays.sort(arr, c) is wrong (not syntactically, but logic-wise)
         Arrays.sort(arr, 0, size, c);
         
         // Solution for int[]
