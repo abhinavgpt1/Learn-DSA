@@ -15,7 +15,7 @@
 // entrySet()                       -> Set<MyHashMap.Entry<T,V>>
 // forEach(BiConsumer<T,V> action)  -> void    (iterate all entries with a lambda; visits in bucket order)
 // print()                          -> void
-// getLoadFactor()                 -> double  (current load factor)
+// getLoadFactor()                 -> double  (current load factor) [Not in util.HashMap]
 
 // Advanced
 // --------
@@ -42,7 +42,6 @@ class MyHashMap<T, V> {
     private final int INITIAL_NUM_BUCKETS = 16; // as per java.util.HashMap
     private final double LOAD_FACTOR = 0.75; // as per java.util.HashMap
 
-    @SuppressWarnings("unchecked")
     public MyHashMap() {
         buckets = new ArrayList<>();
         for (int i = 0; i < INITIAL_NUM_BUCKETS; i++) {
@@ -75,11 +74,14 @@ class MyHashMap<T, V> {
         if (key == null) return 0;
         // hashCode() can be negative, hence returning hashCode % buckets.size() can yield negative index.
         // Bitmasking with Integer.MAX_VALUE strips the sign bit, avoiding negative indices.
-        // PTR: Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE == +2147483648 = rollover 2147483647 == -2147483648
+        
+        // QQ - why can't you do abs instead of bitmasking?
+        // Ans - Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE == +2147483648 = rollover 2147483647 == -2147483648
+        
+        // More on hashcode (derived from Object.hashcode() aka JVM's internal native code) here - https://github.com/abhinavgpt1/Learn-Java/blob/master/CW38_String1_ConstantPool.java
         return (key.hashCode() & Integer.MAX_VALUE) % buckets.size();
     }
 
-    @SuppressWarnings("unchecked")
     private void grow2x() {
         List<List<Entry<T, V>>> tmpBuckets = buckets;
         buckets = new ArrayList<>();
@@ -131,7 +133,7 @@ class MyHashMap<T, V> {
     }
 
     public V getOrDefault(T key, V defaultValue) {
-        // BUG FIX: cannot use `get(key) == null` — key may exist with a null value.
+        // BUG FIXED: cannot use `get(key) == null` - key may exist with a null value.
         return containsKey(key) ? get(key) : defaultValue;
     }
 
@@ -159,7 +161,7 @@ class MyHashMap<T, V> {
     public boolean containsValue(V value) {
         for (int i = 0; i < buckets.size(); i++) {
             for (Entry<T, V> e : buckets.get(i)) {
-                // BUG FIX: e.value.equals(value) NPEs when e.value is null
+                // BUG FIXED: e.value.equals(value) NPEs when e.value is null
                 if (value == null ? e.value == null : value.equals(e.value))
                     return true;
             }
@@ -210,6 +212,8 @@ class MyHashMap<T, V> {
 
     public Set<Entry<T, V>> entrySet() {
         Set<Entry<T, V>> entrySet = new HashSet<>();
+        // PTR: Entry (or any UDDT) should have hashcode and equals overrided for Set to work properly
+        // HashMap defines it like this for Entry - Objects.hashCode(this.key) ^ Objects.hashCode(this.value);
         for (int i = 0; i < buckets.size(); i++) {
             for (Entry<T, V> e : buckets.get(i)) {
                 entrySet.add(e);
@@ -225,7 +229,7 @@ class MyHashMap<T, V> {
     }
 
     public void forEach(java.util.function.BiConsumer<? super T, ? super V> action) {
-        for (Entry<T, V> e : this.entrySet()) {
+        for (Entry<T, V> e: this.entrySet()) {
             action.accept(e.key, e.value);
         }
     }
@@ -241,7 +245,7 @@ public class _09_HashMapImpl {
     }
 
     static void section(String title) {
-        System.out.println("\n── " + title + " ──");
+        System.out.println("\n-- " + title + " --");
     }
 
     public static void main(String[] args) {
@@ -250,9 +254,9 @@ public class _09_HashMapImpl {
         section("put / get / size");
         MyHashMap<String, Integer> map = new MyHashMap<>();
         check("isEmpty on new map", map.isEmpty());
-        check("put apple → null (new)", map.put("apple", 1) == null);
-        check("put banana → null (new)", map.put("banana", 2) == null);
-        check("put cherry → null (new)", map.put("cherry", 3) == null);
+        check("put apple -> null (new)", map.put("apple", 1) == null);
+        check("put banana -> null (new)", map.put("banana", 2) == null);
+        check("put cherry -> null (new)", map.put("cherry", 3) == null);
         check("get apple = 1", map.get("apple") == 1);
         check("get banana = 2", map.get("banana") == 2);
         check("size = 3", map.size() == 3);
@@ -260,14 +264,14 @@ public class _09_HashMapImpl {
 
         // ── 2. update existing key ────────────────────────────
         section("update existing key");
-        check("put apple again → old value 1", map.put("apple", 10) == 1);
+        check("put apple again -> old value 1", map.put("apple", 10) == 1);
         check("get apple after update = 10", map.get("apple") == 10);
         check("size unchanged at 3", map.size() == 3);
 
         // ── 3. getOrDefault ───────────────────────────────────
         section("getOrDefault");
-        check("absent key → default 0", map.getOrDefault("grape", 0) == 0);
-        check("present key → actual value 10", map.getOrDefault("apple", 0) == 10);
+        check("absent key -> default 0", map.getOrDefault("grape", 0) == 0);
+        check("present key -> actual value 10", map.getOrDefault("apple", 0) == 10);
 
         // ── 4. containsKey / containsValue ────────────────────
         section("containsKey / containsValue");
@@ -278,8 +282,8 @@ public class _09_HashMapImpl {
 
         // ── 5. remove ─────────────────────────────────────────
         section("remove");
-        check("remove banana → 2",         map.remove("banana") == 2);
-        check("remove absent → null",       map.remove("ghost") == null);
+        check("remove banana -> 2",         map.remove("banana") == 2);
+        check("remove absent -> null",       map.remove("ghost") == null);
         check("size after remove = 2",      map.size() == 2);
         check("banana gone",               !map.containsKey("banana"));
         check("size unchanged after absent remove", map.size() == 2);
@@ -316,36 +320,36 @@ public class _09_HashMapImpl {
         // ── 9. null values ────────────────────────────────────
         section("null values");
         MyHashMap<String, String> nv = new MyHashMap<>();
-        check("put with null value → null", nv.put("k1", null) == null);
+        check("put with null value -> null", nv.put("k1", null) == null);
         check("get null-value key = null",  nv.get("k1") == null);
         check("containsKey k1 = true",      nv.containsKey("k1"));
         // getOrDefault must distinguish "key absent" from "key present with null value"
-        check("getOrDefault k1 (exists, null value) → null",    nv.getOrDefault("k1", "DEFAULT") == null);
-        check("getOrDefault absent → DEFAULT",                   nv.getOrDefault("missing", "DEFAULT").equals("DEFAULT"));
+        check("getOrDefault k1 (exists, null value) -> null",    nv.getOrDefault("k1", "DEFAULT") == null);
+        check("getOrDefault absent -> DEFAULT",                   nv.getOrDefault("missing", "DEFAULT").equals("DEFAULT"));
         check("containsValue null = true",  nv.containsValue(null));
         nv.put("k2", "hello");
         check("containsValue 'hello' = true", nv.containsValue("hello"));
-        // update null → non-null
-        check("update null→100: old=null",  nv.put("k1", "real") == null);
+        // update null -> non-null
+        check("update null->100: old=null",  nv.put("k1", "real") == null);
         check("get k1 after update = real",  nv.get("k1").equals("real"));
         check("size still 2", nv.size() == 2);
 
         // ── 10. null key ──────────────────────────────────────
         section("null key");
         MyHashMap<String, Integer> nk = new MyHashMap<>();
-        check("put null key → null (new)",   nk.put(null, 42) == null);
+        check("put null key -> null (new)",   nk.put(null, 42) == null);
         check("get null key = 42",           nk.get(null) == 42);
         check("containsKey null = true",     nk.containsKey(null));
         check("containsKey null = false before add", !new MyHashMap<String,Integer>().containsKey(null));
         check("update null key: old=42",     nk.put(null, 99) == 42);
         check("get null key after update=99",nk.get(null) == 99);
         check("size still 1",                nk.size() == 1);
-        check("remove null key → 99",        nk.remove(null) == 99);
+        check("remove null key -> 99",        nk.remove(null) == 99);
         check("null key gone",              !nk.containsKey(null));
         check("size = 0 after remove",       nk.size() == 0);
 
-        // ── 11. resize — data integrity ───────────────────────
-        section("resize — data integrity");
+        // ── 11. resize - data integrity ───────────────────────
+        section("resize - data integrity");
         MyHashMap<Integer, String> big = new MyHashMap<>();
         for (int i = 0; i < 20; i++) big.put(i, "v" + i);
         check("size = 20 after bulk insert", big.size() == 20);
@@ -361,13 +365,13 @@ public class _09_HashMapImpl {
         section("load factor");
         MyHashMap<Integer, String> lf = new MyHashMap<>();
         check("initial load factor = 0", lf.getLoadFactor() == 0.0);
-        // 13/16 = 0.8125 triggers resize → buckets become 32
+        // 13/16 = 0.8125 triggers resize -> buckets become 32
         for (int i = 1; i <= 13; i++) lf.put(i, "v" + i);
         check("load factor <= 0.75 after resize", lf.getLoadFactor() <= 0.75);
         check("size still correct after resize", lf.size() == 13);
 
-        // ── 13. CP — frequency count ──────────────────────────
-        section("CP — frequency count");
+        // ── 13. CP - frequency count ──────────────────────────
+        section("CP - frequency count");
         MyHashMap<Character, Integer> freq = new MyHashMap<>();
         for (char c : "hello".toCharArray())
             freq.put(c, freq.getOrDefault(c, 0) + 1);
@@ -377,8 +381,8 @@ public class _09_HashMapImpl {
         check("freq o=1", freq.get('o') == 1);
         check("freq size=4 unique chars", freq.size() == 4);
 
-        // ── 14. CP — two-sum with map ─────────────────────────
-        section("CP — two-sum");
+        // ── 14. CP - two-sum with map ─────────────────────────
+        section("CP - two-sum");
         int[] nums = {2, 7, 11, 15};
         int target = 9;
         MyHashMap<Integer, Integer> indexMap = new MyHashMap<>();
@@ -394,8 +398,8 @@ public class _09_HashMapImpl {
         }
         check("two-sum indices [0,1]", result[0] == 0 && result[1] == 1);
 
-        // ── 15. CP — group anagrams (computeIfAbsent pattern) ─
-        section("CP — group anagrams");
+        // ── 15. CP - group anagrams (computeIfAbsent pattern) ─
+        section("CP - group anagrams");
         String[] words = {"eat", "tea", "tan", "ate", "nat", "bat"};
         MyHashMap<String, List<String>> groups = new MyHashMap<>();
         for (String w : words) {
@@ -422,55 +426,66 @@ public class _09_HashMapImpl {
         check("forEach: a=1", collected.get("a") == 1);
         check("forEach: b=2", collected.get("b") == 2);
         check("forEach: c=3", collected.get("c") == 3);
-        // forEach on empty map — no iterations
+        // forEach on empty map - no iterations
         MyHashMap<String, Integer> feEmpty = new MyHashMap<>();
         int[] count = {0};
         feEmpty.forEach((k, v) -> count[0]++);
         check("forEach on empty map: 0 visits", count[0] == 0);
 
         // ── Summary ──────────────────────────────────────────
-        System.out.println("\n════════════════════════════");
+        System.out.println("\n==============================");
         System.out.println("  Results: " + passed + " passed, " + failed + " failed");
-        System.out.println("════════════════════════════");
+        System.out.println("==============================");
+
+        /**
+         * Definitions:
+         * HashMap: A data structure that stores key-value pairs and uses hashing to
+         * provide average O(1) time complexity for insertion, deletion, and lookup.
+         * 
+         * Load Factor: The ratio of the number of entries to the number of buckets in
+         * a hash table. In Java's HashMap, the default load factor is 0.75; when the
+         * size exceeds the threshold (bucket size × load factor), the map resizes and
+         * rehashes its entries.
+         */
     }
 }
 
 /**
  * Output:
  * -------
- * ── put / get / size ──
+ * -- put / get / size --
  *   PASS  isEmpty on new map
- *   PASS  put apple → null (new)
- *   PASS  put banana → null (new)
- *   PASS  put cherry → null (new)
+ *   PASS  put apple -> null (new)
+ *   PASS  put banana -> null (new)
+ *   PASS  put cherry -> null (new)
  *   PASS  get apple = 1
  *   PASS  get banana = 2
  *   PASS  size = 3
  *   PASS  get absent = null
  * 
- * ── update existing key ──
- *   PASS  put apple again → old value 1
+ * -- update existing key --
+ *   PASS  put apple again -> old value 1
  *   PASS  get apple after update = 10
  *   PASS  size unchanged at 3
  * 
- * ── getOrDefault ──
- *   PASS  absent key → default 0
- *   PASS  present key → actual value 10
+ * -- getOrDefault --
+ *   PASS  absent key -> default 0
+ *   PASS  present key -> actual value 10
  * 
- * ── containsKey / containsValue ──
+ * -- containsKey / containsValue --
  *   PASS  containsKey apple = true
  *   PASS  containsKey grape = false
  *   PASS  containsValue 2 = true
  *   PASS  containsValue 99 = false
  * 
- * ── remove ──
- *   PASS  remove banana → 2
- *   PASS  remove absent → null
+ * -- remove --
+ *   PASS  remove banana -> 2
+ *   PASS  remove absent -> null
  *   PASS  size after remove = 2
  *   PASS  banana gone
  *   PASS  size unchanged after absent remove
  * 
- * ── keySet / values / entrySet ──
+ * -- keySet / values / entrySet --
  *   PASS  keySet size = 2
  *   PASS  values size = 2
  *   PASS  entrySet size = 2
@@ -478,42 +493,42 @@ public class _09_HashMapImpl {
  *   PASS  keySet contains cherry
  *   PASS  values contains 10
  * 
- * ── putAll ──
+ * -- putAll --
  *   PASS  size after putAll = 4
  *   PASS  dog = 4
  *   PASS  cat = 5
  * 
- * ── clear / isEmpty ──
+ * -- clear / isEmpty --
  *   PASS  not empty before clear
  *   PASS  isEmpty after clear
  *   PASS  size = 0 after clear
  *   PASS  put after clear works
  * 
- * ── null values ──
- *   PASS  put with null value → null
+ * -- null values --
+ *   PASS  put with null value -> null
  *   PASS  get null-value key = null
  *   PASS  containsKey k1 = true
- *   PASS  getOrDefault k1 (exists, null value) → null
- *   PASS  getOrDefault absent → DEFAULT
+ *   PASS  getOrDefault k1 (exists, null value) -> null
+ *   PASS  getOrDefault absent -> DEFAULT
  *   PASS  containsValue null = true
  *   PASS  containsValue 'hello' = true
- *   PASS  update null→100: old=null
+ *   PASS  update null->100: old=null
  *   PASS  get k1 after update = real
  *   PASS  size still 2
  * 
- * ── null key ──
- *   PASS  put null key → null (new)
+ * -- null key --
+ *   PASS  put null key -> null (new)
  *   PASS  get null key = 42
  *   PASS  containsKey null = true
  *   PASS  containsKey null = false before add
  *   PASS  update null key: old=42
  *   PASS  get null key after update=99
  *   PASS  size still 1
- *   PASS  remove null key → 99
+ *   PASS  remove null key -> 99
  *   PASS  null key gone
  *   PASS  size = 0 after remove
  * 
- * ── resize — data integrity ──
+ * -- resize - data integrity --
  *   PASS  size = 20 after bulk insert
  *   PASS  get(0) survives resize
  *   PASS  get(5) survives resize
@@ -522,35 +537,35 @@ public class _09_HashMapImpl {
  *   PASS  removed key(5) gone
  *   PASS  kept key(15) intact
  * 
- * ── load factor ──
+ * -- load factor --
  *   PASS  initial load factor = 0
  *   PASS  load factor <= 0.75 after resize
  *   PASS  size still correct after resize
  * 
- * ── CP — frequency count ──
+ * -- CP - frequency count --
  *   PASS  freq h=1
  *   PASS  freq e=1
  *   PASS  freq l=2
  *   PASS  freq o=1
  *   PASS  freq size=4 unique chars
  * 
- * ── CP — two-sum ──
+ * -- CP - two-sum --
  *   PASS  two-sum indices [0,1]
  * 
- * ── CP — group anagrams ──
+ * -- CP - group anagrams --
  *   PASS  3 anagram groups
  *   PASS  'aet' group has 3 words
  *   PASS  'ant' group has 2 words
  *   PASS  'abt' group has 1 word
  * 
- * ── forEach ──
+ * -- forEach --
  *   PASS  forEach visits all 3 entries
  *   PASS  forEach: a=1
  *   PASS  forEach: b=2
  *   PASS  forEach: c=3
  *   PASS  forEach on empty map: 0 visits
  * 
- * ════════════════════════════
+ * ==============================
  *   Results: 80 passed, 0 failed
- * ════════════════════════════
+ * ==============================
  */

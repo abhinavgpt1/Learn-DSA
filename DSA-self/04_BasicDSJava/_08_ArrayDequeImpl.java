@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 // ArrayDeque — CP-focused method reference
 // ============================================================
 // Backed by a circular resizable array.
-// Faster than LinkedList for stack/queue because of cache locality.
+// Faster than LinkedList for stack/queue because of cache locality (contiguous memory).
 // Prefer ArrayDeque over Stack (synchronized) and LinkedList (GC overhead).
 
 // O(1) amortized — Core deque operations  ★ most important for CP
@@ -185,6 +185,7 @@ class MyArrayDeque<T> {
     public void clear() {
         for (int i = 0; i < size; i++)
             arr[(head + i) % arr.length] = null;
+        // Or simply: Arrays.fill(arr, null);
         head = tail = -1;
         size = 0;
     }
@@ -202,7 +203,8 @@ class MyArrayDeque<T> {
         T[] bigger = (T[]) new Object[arr.length * 2];
         for (int i = 0; i < size; i++)
             bigger[i] = arr[(head + i) % arr.length];
-        arr  = bigger;
+        arr = bigger;
+        // Optional: Arrays.fill(arr, null); // clear old references
         head = 0;
         tail = size - 1;
     }
@@ -233,7 +235,7 @@ public class _08_ArrayDequeImpl {
     }
 
     static void section(String title) {
-        System.out.println("\n── " + title + " ──");
+        System.out.println("\n-- " + title + " --");
     }
 
     // ─────────────────────────────────────────────────────────
@@ -376,9 +378,135 @@ public class _08_ArrayDequeImpl {
         d.clear();
 
         // ── Summary ──────────────────────────────────────────────
-        System.out.println("\n════════════════════════════");
+        System.out.println("\n==============================");
         System.out.println("  Results: " + passed + " passed, " + failed + " failed");
-        System.out.println("════════════════════════════");
+        System.out.println("==============================");
+
+        /**
+         * Definitions:
+         * ArrayDeque: A double-ended queue (implemented using a resizable circular)
+         * array, allowing efficient addition and removal of elements from both ends.
+         * 
+         * Circular Array: An array that wraps around to the beginning when the end is
+         * reached, allowing for efficient use of space and constant-time operations.
+         */
     }
 }
- 
+
+/**
+ * Output:
+ * -- addFirst / addLast / size / isEmpty --
+ *   PASS  isEmpty on new deque
+ *   PASS  size == 0 on new deque
+ *   PASS  toString after addFirst/addLast
+ *   PASS  size == 3
+ *   PASS  !isEmpty
+ * 
+ * -- getFirst / getLast / peekFirst / peekLast --
+ *   PASS  getFirst == 1
+ *   PASS  getLast  == 3
+ *   PASS  peekFirst == 1
+ *   PASS  peekLast  == 3
+ *   PASS  size unchanged after peeks
+ * 
+ * -- removeFirst / removeLast --
+ *   PASS  removeFirst == 1
+ *   PASS  removeLast  == 3
+ *   PASS  peekLast after removeLast == 2
+ *   PASS  deque is [2]
+ *   PASS  size == 1
+ *   PASS  removeFirst last element == 2
+ *   PASS  isEmpty after removing all
+ * 
+ * -- pollFirst / pollLast on empty deque --
+ *   PASS  pollFirst on empty == null
+ *   PASS  pollLast  on empty == null
+ *   PASS  peekFirst on empty == null
+ *   PASS  peekLast  on empty == null
+ * 
+ * -- Exceptions on empty deque --
+ *   PASS  removeFirst throws on empty
+ *   PASS  removeLast throws on empty
+ *   PASS  getFirst throws on empty
+ *   PASS  getLast throws on empty
+ * 
+ * -- Stack: push / pop / peek --
+ *   PASS  peek == 30 (top)
+ *   PASS  pop  == 30
+ *   PASS  pop  == 20
+ *   PASS  pop  == 10
+ *   PASS  isEmpty after pops
+ * 
+ * -- Queue: offer / poll (FIFO) --
+ *   PASS  poll == 1 (FIFO)
+ *   PASS  poll == 2
+ *   PASS  poll == 3
+ *   PASS  poll on empty == null
+ * 
+ * -- contains / remove(obj) --
+ *   PASS  contains 2
+ *   PASS  !contains 99
+ *   PASS  remove(2) == true
+ *   PASS  deque is [1, 3, 2]
+ *   PASS  peekLast after remove
+ *   PASS  remove(1) (front)
+ *   PASS  remove(2) (back)
+ *   PASS  deque is [3]
+ *   PASS  remove only element
+ *   PASS  isEmpty after remove
+ *   PASS  addFirst after empty-via-remove
+ *   PASS  peekLast  after empty-via-remove
+ *   PASS  size == 1 after re-add
+ *   PASS  addLast after single re-add
+ *   PASS  contains 99 after re-add
+ * 
+ * -- Null-safe operations --
+ *   PASS  contains null
+ *   PASS  remove null == true
+ *   PASS  deque is [a, null]
+ *   PASS  peekFirst == a
+ *   PASS  peekLast  == null
+ * 
+ * -- clear --
+ *   PASS  isEmpty after clear
+ *   PASS  size == 0 after clear
+ *   PASS  toString after clear
+ * 
+ * -- toArray --
+ *   PASS  toArray length == 3
+ *   PASS  toArray[0] == 10
+ *   PASS  toArray[1] == 20
+ *   PASS  toArray[2] == 30
+ * 
+ * -- Resize (> 16 elements) --
+ *   PASS  size == 20 after resize
+ *   PASS  peekFirst == 1 after resize
+ *   PASS  peekLast  == 20 after resize
+ *   PASS  drain in order 1
+ *   PASS  drain in order 2
+ *   PASS  drain in order 3
+ *   PASS  drain in order 4
+ *   PASS  drain in order 5
+ *   PASS  drain in order 6
+ *   PASS  drain in order 7
+ *   PASS  drain in order 8
+ *   PASS  drain in order 9
+ *   PASS  drain in order 10
+ *   PASS  drain in order 11
+ *   PASS  drain in order 12
+ *   PASS  drain in order 13
+ *   PASS  drain in order 14
+ *   PASS  drain in order 15
+ *   PASS  drain in order 16
+ *   PASS  drain in order 17
+ *   PASS  drain in order 18
+ *   PASS  drain in order 19
+ *   PASS  drain in order 20
+ *   PASS  isEmpty after drain
+ *   PASS  addLast after drain
+ *   PASS  addFirst after drain
+ * 
+ * ============================
+ *   Results: 87 passed, 0 failed
+ * ============================
+ */
