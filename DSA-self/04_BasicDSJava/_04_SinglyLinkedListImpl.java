@@ -200,6 +200,7 @@ class SinglyLinkedList<T> {
         return currNode.getData();
     }
 
+    // Beware of remove (index) in case of Integer collection
     public boolean remove(T obj) {
         if (isLoop() || isEmpty() || !contains(obj))
             return false;
@@ -497,5 +498,11 @@ public class _04_SinglyLinkedListImpl {
         list.print();
 
         System.out.println("\n=== All tests completed! ===");
+
+        /**
+         * Definitions:
+         * Singly Linked List: A linear data structure in which each node stores data
+         * and a reference to the next node, with the last node pointing to null.
+         */
     }
 }

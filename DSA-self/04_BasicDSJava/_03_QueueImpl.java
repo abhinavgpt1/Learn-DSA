@@ -164,5 +164,11 @@ public class _03_QueueImpl {
         System.out.println();
 
         System.out.println("=== All Tests Completed Successfully! ===");
+
+        /**
+         * Definitions:
+         * Queue: A linear data structure that follows FIFO (First In, First Out), where
+         * elements are inserted at the rear and removed from the front.
+         */
     }
 }

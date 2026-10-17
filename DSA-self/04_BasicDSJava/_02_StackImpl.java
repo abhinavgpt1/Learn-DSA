@@ -161,5 +161,10 @@ public class _02_StackImpl {
         System.out.println();
 
         System.out.println("=== All Tests Completed Successfully! ===");
+
+        /**
+         * Definitions:
+         * Stack: A linear data structure that follows LIFO (Last In, First Out), where insertion and deletion occur at the top.
+         */
     }
 }

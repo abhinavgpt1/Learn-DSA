@@ -310,5 +310,18 @@ public class _01_ArrayListImpl {
         System.out.println();
         
         System.out.println("=== All Tests Completed Successfully! ===");
+
+        /**
+         * Definitions:
+         * Linear Data Structure: A data structure in which elements are organized
+         * sequentially, one after another, so they can be traversed in a linear order.
+         * 
+         * Array: A linear data structure that stores elements in contiguous memory
+         * locations and provides O(1) index-based access.
+         * 
+         * ArrayList: A dynamic array that automatically grows or shrinks as elements
+         * are added or removed, providing fast index-based access to elements.
+         * 
+         */
     }
 }
