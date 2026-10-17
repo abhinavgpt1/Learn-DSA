@@ -88,7 +88,10 @@ class MyPriorityQueue<T> {
 
         // PTR: T[] arr = new T[10]; isn't possible due to type erasure. 
         // Generics are compile-time only; arrays need runtime types. 
-        // Java won't let you create new T[] because T doesn't exist at runtime—it becomes Object.
+        // Java won't let you create "new T[]"" because T doesn't exist at runtime — it becomes Object.
+        // - Type erasure removes generic info, but compiler inserts casts automatically.
+        // Soln: Use collection like ArrayList, or create Object[] and cast to T[] (with @SuppressWarnings).
+        // More on this here - https://github.com/abhinavgpt1/Learn-Java/blob/master/CW66_68_Generics/CW68_Generics_3_TypeErasureAndGenericExceptions.java
     }
 
     // public methods
@@ -213,7 +216,7 @@ public class _07_PriorityQueueImpl {
             emptyPq.remove();
             System.out.println("ERROR: Should have thrown exception!");
         } catch (NoSuchElementException e) {
-            System.out.println("✓ Correctly threw NoSuchElementException");
+            System.out.println("- Correctly threw NoSuchElementException");
         }
         System.out.println();
         
@@ -246,5 +249,72 @@ public class _07_PriorityQueueImpl {
         System.out.println("\n");
         
         System.out.println("=== All Tests Completed Successfully! ===");
+
+        /**
+         * Definitions:
+         * Priority Queue: An abstract data type in which each element is associated
+         * with a priority, and elements are removed based on priority rather than
+         * insertion order.
+         * 
+         * The Heap Property: This rule governs the relationship between parents and
+         * children, dividing heaps into two main types:
+         * - Max-Heap: The value of the parent node is always greater than or equal to
+         * the values of its children. The absolute maximum element sits at the root.
+         * - Min-Heap: The value of the parent node is always less than or equal to the
+         * values of its children. The absolute minimum element sits at the root.
+         * 
+         * Heap: A complete binary tree data structure that satisfies the heap property.
+         * 
+         * Heapify: The process of restoring the heap property in a heap by rearranging
+         * elements.
+         * 
+         * Heapify Up (Sift Up): Moving a newly inserted element upward toward the root
+         * until the heap property is satisfied.
+         * 
+         * Heapify Down (Sift Down): Moving an element downward, swapping it with the
+         * appropriate child until the heap property is satisfied.
+         */
     }
 }
+
+/**
+ * Output:
+ * === Test 1: Min-Heap (Natural Order) ===
+ * Size: 7
+ * Peek (should be 1): 1
+ * Elements in ascending order:
+ * 1 2 3 5 7 8 9 
+ * 
+ * === Test 2: Max-Heap (Reverse Order) ===
+ * Peek (should be 9): 9
+ * Elements in descending order:
+ * 9 7 5 3 2 1 
+ * 
+ * === Test 3: Edge Cases ===
+ * Is empty: true
+ * Peek on empty: null
+ * Size after adding one: 1
+ * Remove single element: 42
+ * Is empty after removal: true
+ * Size before clear: 3
+ * Size after clear: 0
+ * 
+ * === Test 4: Capacity Expansion ===
+ * Adding 20 elements (initial capacity is 11)...
+ * Size: 20
+ * First 5 removed: 
+ * 1 2 3 4 5 
+ * 
+ * === Test 5: Exception Handling ===
+ * - Correctly threw NoSuchElementException
+ * 
+ * === Test 6: String Priority Queue ===
+ * Strings in alphabetical order:
+ * apple avocado banana cherry date 
+ * 
+ * === Test 7: Duplicate Elements ===
+ * Removing duplicates:
+ * 3 3 5 5 5 
+ * 
+ * === All Tests Completed Successfully! ===
+ */

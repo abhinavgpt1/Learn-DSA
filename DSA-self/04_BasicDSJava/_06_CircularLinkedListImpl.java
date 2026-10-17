@@ -89,7 +89,8 @@ class MyCircularLinkedList<T> {
         T data = head.data;
         if (head == tail) {
             head = tail = null;
-            // fyi, below else code works, but cleanup of node won't happen since tail still points to the node.
+            // fyi, we need this if block since in case of single node below code won't
+            // delete the node since tail still points to the node.
         } else {
             tail.next = head.next;
             head.next = null;
@@ -222,7 +223,7 @@ public class _06_CircularLinkedListImpl {
     }
 
     static void section(String title) {
-        System.out.println("\n── " + title + " ──");
+        System.out.println("\n-- " + title + " --");
     }
 
     public static void main(String[] args) {
@@ -301,7 +302,7 @@ public class _06_CircularLinkedListImpl {
         section("Null-safe operations");
         MyCircularLinkedList<String> ns = new MyCircularLinkedList<>();
         ns.addLast(null); ns.addLast("a"); ns.addLast(null);
-        check("contains null",         ns.contains(null));
+        check("contains null",          ns.contains(null));
         check("indexOf null == 0",      ns.indexOf(null) == 0);
         check("remove null == true",    ns.remove((String) null));  // must not use != null check
         check("list is [a, null]",      ns.toString().equals("[a, null]"));
@@ -348,8 +349,96 @@ public class _06_CircularLinkedListImpl {
         check("Josephus survivor == 3", circle.peekFirst() == 3);
 
         // ── Summary ──────────────────────────────────────────
-        System.out.println("\n════════════════════════════");
+        System.out.println("\n==============================");
         System.out.println("  Results: " + passed + " passed, " + failed + " failed");
-        System.out.println("════════════════════════════");
+        System.out.println("==============================");
+
+        /**
+         * Definitions:
+         * Circular Linked List: A linked list in which the last node points back to the
+         * first node instead of pointing to null.
+         */
     }
 }
+
+/**
+ * Output:
+ * -- addFirst / addLast / size / isEmpty --
+ *   PASS  isEmpty on new list
+ *   PASS  size == 0 on new list
+ *   PASS  toString [1, 2, 3]
+ *   PASS  size == 3
+ *   PASS  !isEmpty
+ * 
+ * -- peekFirst / peekLast --
+ *   PASS  peekFirst == 1
+ *   PASS  peekLast  == 3
+ *   PASS  size unchanged
+ * 
+ * -- removeFirst --
+ *   PASS  removeFirst == 1
+ *   PASS  peekFirst == 2 after remove
+ *   PASS  list is [2, 3]
+ *   PASS  removeFirst == 2
+ *   PASS  removeFirst last element == 3
+ *   PASS  isEmpty after removing all
+ * 
+ * -- removeLast --
+ *   PASS  removeLast == 3
+ *   PASS  peekLast == 2 after remove
+ *   PASS  list is [1, 2]
+ *   PASS  removeLast == 2
+ *   PASS  removeLast last element == 1
+ *   PASS  isEmpty after removeLast all
+ * 
+ * -- Exceptions on empty list --
+ *   PASS  removeFirst throws on empty
+ *   PASS  removeLast throws on empty
+ *   PASS  peekFirst on empty == null
+ *   PASS  peekLast  on empty == null
+ * 
+ * -- contains / indexOf --
+ *   PASS  contains 2
+ *   PASS  !contains 99
+ *   PASS  indexOf 1 == 0
+ *   PASS  indexOf 2 == 1
+ *   PASS  indexOf 99 == -1
+ * 
+ * -- remove(obj) --
+ *   PASS  remove(2) == true
+ *   PASS  list is [1, 3, 2]
+ *   PASS  remove(1) head
+ *   PASS  list is [3, 2]
+ *   PASS  remove(2) tail
+ *   PASS  list is [3]
+ *   PASS  remove only element
+ *   PASS  isEmpty after remove
+ *   PASS  remove on empty == false
+ * 
+ * -- Null-safe operations --
+ *   PASS  contains null
+ *   PASS  indexOf null == 0
+ *   PASS  remove null == true
+ *   PASS  list is [a, null]
+ * 
+ * -- clear --
+ *   PASS  isEmpty after clear
+ *   PASS  size == 0 after clear
+ *   PASS  toString after clear
+ * 
+ * -- rotate() --
+ *   PASS  peekFirst after 1 rotate == 2
+ *   PASS  peekLast  after 1 rotate == 1
+ *   PASS  toString after 1 rotate
+ *   PASS  peekFirst after 2 rotates == 3
+ *   PASS  toString after 2 rotates
+ *   PASS  full cycle restore
+ * 
+ * -- CP Pattern: Josephus (N=5, k=2) --
+ *   PASS  Josephus elimination order correct
+ *   PASS  Josephus survivor == 3
+ * 
+ * ==============================
+ *   Results: 53 passed, 0 failed
+ * ==============================
+ */
