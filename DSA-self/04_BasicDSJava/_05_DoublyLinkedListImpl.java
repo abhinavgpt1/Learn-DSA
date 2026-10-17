@@ -332,7 +332,7 @@ public class _05_DoublyLinkedListImpl {
     }
 
     static void section(String title) {
-        System.out.println("\n── " + title + " ──");
+        System.out.println("\n-- " + title + " --");
     }
 
     // ─────────────────────────────────────────────────────────
@@ -519,9 +519,9 @@ public class _05_DoublyLinkedListImpl {
         check("still no loop after reads",  !cyc.isLoop());
 
         // ── Summary ───────────────────────────────────────────
-        System.out.println("\n════════════════════════════");
+        System.out.println("\n==============================");
         System.out.println("  Results: " + passed + " passed, " + failed + " failed");
-        System.out.println("════════════════════════════");
+        System.out.println("==============================");
 
         /**
          * Definitions:
@@ -533,21 +533,21 @@ public class _05_DoublyLinkedListImpl {
 
 /**
  * Output:
- * ── addFirst / addLast / size / isEmpty ──
+ * -- addFirst / addLast / size / isEmpty --
  *   PASS  isEmpty on new list
  *   PASS  size == 0 on new list
  *   PASS  toString after addFirst/addLast/add(obj)
  *   PASS  size == 4
  *   PASS  !isEmpty
- *
- * ── add(index) ──
+ * 
+ * -- add(index) --
  *   PASS  add(1,99) inserts at index 1
  *   PASS  add(0,0) inserts at head
  *   PASS  add(size,100) inserts at tail
  *   PASS  add(-1) throws
  *   PASS  add(size+1) throws
- *
- * ── get(index) / set(index) ──
+ * 
+ * -- get(index) / set(index) --
  *   PASS  get(0) == 10
  *   PASS  get(1) == 20
  *   PASS  get(2) == 30
@@ -555,8 +555,8 @@ public class _05_DoublyLinkedListImpl {
  *   PASS  get(1) == 99 after set
  *   PASS  get(-1) throws
  *   PASS  get(size) throws
- *
- * ── remove(index) ──
+ * 
+ * -- remove(index) --
  *   PASS  remove(1) returns 2
  *   PASS  list is [1 <-> 3 <-> 4]
  *   PASS  remove(0) returns head 1
@@ -564,47 +564,47 @@ public class _05_DoublyLinkedListImpl {
  *   PASS  list is [3]
  *   PASS  remove(-1) throws
  *   PASS  remove(size) throws
- *
- * ── getFirst / getLast / peekFirst / peekLast ──
+ * 
+ * -- getFirst / getLast / peekFirst / peekLast --
  *   PASS  getFirst == 1
  *   PASS  getLast  == 3
  *   PASS  peekFirst == 1
  *   PASS  peekLast  == 3
  *   PASS  size unchanged after peeks
- *
- * ── removeFirst / removeLast ──
+ * 
+ * -- removeFirst / removeLast --
  *   PASS  removeFirst == 1
  *   PASS  removeLast  == 3
  *   PASS  list is [2]
  *   PASS  removeFirst last element == 2
  *   PASS  isEmpty after removing all
- *
- * ── pollFirst / pollLast on empty list ──
+ * 
+ * -- pollFirst / pollLast on empty list --
  *   PASS  pollFirst on empty == null
  *   PASS  pollLast  on empty == null
  *   PASS  peekFirst on empty == null
  *   PASS  peekLast  on empty == null
- *
- * ── Exceptions on empty list ──
+ * 
+ * -- Exceptions on empty list --
  *   PASS  removeFirst throws on empty
  *   PASS  removeLast throws on empty
  *   PASS  getFirst throws on empty
  *   PASS  getLast throws on empty
- *
- * ── Stack: push / pop / peek ──
+ * 
+ * -- Stack: push / pop / peek --
  *   PASS  peek == 30 (top)
  *   PASS  pop  == 30
  *   PASS  pop  == 20
  *   PASS  pop  == 10
  *   PASS  isEmpty after pops
- *
- * ── Queue: offer / poll ──
+ * 
+ * -- Queue: offer / poll --
  *   PASS  poll == 1 (FIFO)
  *   PASS  poll == 2
  *   PASS  poll == 3
  *   PASS  poll on empty == null
- *
- * ── contains / indexOf / lastIndexOf ──
+ * 
+ * -- contains / indexOf / lastIndexOf --
  *   PASS  contains 2
  *   PASS  !contains 99
  *   PASS  indexOf 1 == 0
@@ -613,44 +613,44 @@ public class _05_DoublyLinkedListImpl {
  *   PASS  lastIndexOf 2 == 3
  *   PASS  lastIndexOf 1 == 0
  *   PASS  lastIndexOf 99 == -1
- *
- * ── remove(obj) ──
+ * 
+ * -- remove(obj) --
  *   PASS  remove(2) == true
  *   PASS  list is [1 <-> 3 <-> 2]
  *   PASS  remove(1) (head)
  *   PASS  remove(2) (tail)
  *   PASS  list is [3]
  *   PASS  remove(99) == false
- *
- * ── reversed() ──
+ * 
+ * -- reversed() --
  *   PASS  reversed is [3 <-> 2 <-> 1]
  *   PASS  original unchanged [1 <-> 2 <-> 3]
  *   PASS  reversed size == 3
- *
- * ── Null-safe operations ──
+ * 
+ * -- Null-safe operations --
  *   PASS  contains null
  *   PASS  indexOf null == 0
  *   PASS  lastIndexOf null == 2
  *   PASS  remove null
  *   PASS  list is [a <-> null]
- *
- * ── clear ──
+ * 
+ * -- clear --
  *   PASS  isEmpty after clear
  *   PASS  size == 0 after clear
  *   PASS  toString after clear
- *
- * ── getMiddleNode ──
+ * 
+ * -- getMiddleNode --
  *   PASS  getMiddleNode on empty == null
  *   PASS  middle of [1] == 1
  *   PASS  middle of [1,2,3] == 2 (left)
  *   PASS  middle of [1,2,3,4] == 2 (left)
  *   PASS  middle of [1,2,3,4,5] == 3
- *
- * ── isLoop ──
+ * 
+ * -- isLoop --
  *   PASS  isLoop == false (no cycle)
  *   PASS  still no loop after reads
- *
- * ════════════════════════════
- *   Results: 84 passed, 0 failed
- * ════════════════════════════
+ * 
+ * ==============================
+ *   Results: 83 passed, 0 failed
+ * ==============================
  */
