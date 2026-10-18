@@ -79,12 +79,27 @@ class MyBinarySearchTree<T extends Comparable<? super T>> {
             return contains(obj, node.right);
     }
 
-    // can be optimised from T(n) = O(n) + 2*T(n/2) to O(n) using Pair containing
-    // height(int), isBST(boolean) for subtree.
-    private boolean isBalanced(MyBinarySearchTreeNode<T> node) {
-        if (node == null)
-            return true;
-        return Math.abs(height(node.left) - height(node.right)) <= 1 && isBalanced(node.left) && isBalanced(node.right);
+    class HeightBalancePair {
+        int height;
+        boolean isBalanced;
+        HeightBalancePair(int height, boolean isBalanced) {
+            this.height = height;
+            this.isBalanced = isBalanced;
+        }
+    }
+    
+    // O(n)
+    private HeightBalancePair isBalanced(MyBinarySearchTreeNode<T> node) {
+        if (node == null) {
+            return new HeightBalancePair(0, true); // (height of node, is node balanced)
+        }
+        HeightBalancePair leftAns = isBalanced(node.left);
+        HeightBalancePair rightAns = isBalanced(node.right);
+        return new HeightBalancePair(Math.max(leftAns.height, rightAns.height) + 1,
+                leftAns.isBalanced && rightAns.isBalanced && Math.abs(leftAns.height - rightAns.height) <= 1);
+        
+        // Traditional algo: Math.abs(height(node.left) - height(node.right)) <= 1 && isBalanced(node.left) && isBalanced(node.right);
+        // - Time complexity: T(n) = O(n) + 2*T(n/2)
     }
 
     private void clear(MyBinarySearchTreeNode<T> node) {
@@ -93,6 +108,14 @@ class MyBinarySearchTree<T extends Comparable<? super T>> {
         clear(node.left);
         clear(node.right);
         node.delete();
+    }
+
+    private T findMax(MyBinarySearchTreeNode<T> node) {
+        if (node == null)
+            return null;
+        if (node.right != null)
+            return findMax(node.right);
+        return node.data;
     }
 
     private MyBinarySearchTreeNode<T> delete(T obj, MyBinarySearchTreeNode<T> node) {
@@ -269,14 +292,6 @@ class MyBinarySearchTree<T extends Comparable<? super T>> {
         return true;
     }
 
-    public T findMax(MyBinarySearchTreeNode<T> node) {
-        if (node == null)
-            return null;
-        if (node.right != null)
-            return findMax(node.right);
-        return node.data;
-    }
-
     public int height() {
         return height(root);
     }
@@ -320,14 +335,14 @@ class MyBinarySearchTree<T extends Comparable<? super T>> {
     }
 
     public boolean isBalanced() {
-        return isBalanced(root);
+        return isBalanced(root).isBalanced;
     }
 }
 
 public class _14_BinarySearchTreeImpl {
 
     static void check(boolean condition, String msg) {
-        System.out.println("  " + (condition ? "PASS" : "FAIL") + " — " + msg);
+        System.out.println("  " + (condition ? "PASS" : "FAIL") + " - " + msg);
     }
 
     public static void main(String[] args) {
@@ -489,18 +504,24 @@ public class _14_BinarySearchTreeImpl {
         }
 
         System.out.println("\n========== All Tests Complete ==========");
+
+        /**
+         * Definitions:
+         * Binary Search TreeL A binary tree in which values in the left subtree are
+         * smaller and values in the right subtree are larger than the node's value,
+         * according to the chosen ordering and duplicate policy.
+         */
     }
 }
 
 /**
  * Output:
- * -------
  * ========== BST Test Suite ==========
  * 
  * [Test 1] Create tree from array
- *   PASS — Size is 7
- *   PASS — Height is 3
- *   PASS — Is balanced
+ *   PASS - Size is 7
+ *   PASS - Height is 3
+ *   PASS - Is balanced
  *   Level Order: 5 
  * 3 7 
  * 1 4 6 8 
@@ -511,52 +532,52 @@ public class _14_BinarySearchTreeImpl {
  *   PostOrder (Expected: 1 4 3 6 8 7 5): 1 4 3 6 8 7 5 
  * 
  * [Test 3] Contains method
- *   PASS — Contains 4
- *   PASS — Does not contain 10
- *   PASS — Contains null → false
+ *   PASS - Contains 4
+ *   PASS - Does not contain 10
+ *   PASS - Contains null ? false
  * 
  * [Test 4] Update method
- *   PASS — Update 4→9 returns true
+ *   PASS - Update 4?9 returns true
  *   InOrder after update (Expected: 1 3 5 6 7 8 9): 1 3 5 6 7 8 9 
- *   PASS — Size unchanged after update
- *   PASS — Update non-existent 100→200 returns false
+ *   PASS - Size unchanged after update
+ *   PASS - Update non-existent 100?200 returns false
  * 
  * [Test 5] Delete operations
- *   PASS — Size after deleting leaf (9) = 6
- *   PASS — Size after deleting node with two children (7) = 5
- *   PASS — Size after deleting root (5) = 4
+ *   PASS - Size after deleting leaf (9) = 6
+ *   PASS - Size after deleting node with two children (7) = 5
+ *   PASS - Size after deleting root (5) = 4
  *   Level Order after 3 deletes: 3 
  * 1 6 
  * 8 
  * 
  * [Test 6] Insert after deletions
- *   PASS — Size after 2 inserts = 6
+ *   PASS - Size after 2 inserts = 6
  *   Level Order: 3 
  * 1 6 
  * 2 8 
  * 10 
  * 
  * [Test 7] Empty tree operations
- *   PASS — isEmpty() = true
- *   PASS — Height = 0
- *   PASS — Contains 5 → false
+ *   PASS - isEmpty() = true
+ *   PASS - Height = 0
+ *   PASS - Contains 5 ? false
  *   Level Order: Tree is empty.
  * 
  * [Test 8] Single element tree
- *   PASS — Size = 1
- *   PASS — Height = 1
- *   PASS — Is balanced
- *   PASS — isEmpty() = false
+ *   PASS - Size = 1
+ *   PASS - Height = 1
+ *   PASS - Is balanced
+ *   PASS - isEmpty() = false
  * 
  * [Test 9] Unbalanced tree (linear)
- *   PASS — Height = 7
- *   PASS — Is NOT balanced
+ *   PASS - Height = 7
+ *   PASS - Is NOT balanced
  *   InOrder (Expected: 1 2 3 4 5 6 7): 1 2 3 4 5 6 7 
  * 
  * [Test 10] Clear operation
- *   PASS — Size after clear = 0
- *   PASS — isEmpty() = true after clear
- *   PASS — Contains 3 → false after clear
+ *   PASS - Size after clear = 0
+ *   PASS - isEmpty() = true after clear
+ *   PASS - Contains 3 ? false after clear
  * 
  * [Test 11] Strategy pattern usage
  *   PreOrder Strategy  (Expected: 4 2 1 3 6 5 7): 4 2 1 3 6 5 7 
@@ -564,22 +585,22 @@ public class _14_BinarySearchTreeImpl {
  *   PostOrder Strategy (Expected: 1 3 2 5 7 6 4): 1 3 2 5 7 6 4 
  * 
  * [Test 12] BST with Strings
- *   PASS — Size = 6
- *   PASS — Contains 'cat'
- *   PASS — Does not contain 'zebra'
+ *   PASS - Size = 6
+ *   PASS - Contains 'cat'
+ *   PASS - Does not contain 'zebra'
  *   InOrder (Expected: ant bear cat dog elephant fox): ant bear cat dog elephant fox 
  * 
  * [Test 13] Duplicate handling
- *   PASS — Size after inserting 5 three times = 3
+ *   PASS - Size after inserting 5 three times = 3
  *   InOrder (Expected: 5 5 5): 5 5 5 
  * 
  * [Test 14] Delete non-existent element
- *   PASS — Size unchanged after deleting non-existent 99
+ *   PASS - Size unchanged after deleting non-existent 99
  * 
- * [Test 15] Subtype with inherited Comparable<Animal> — Dog extends Animal
- *   PASS — Size = 3
- *   PASS — Contains Rex
- *   PASS — Does not contain Fido
+ * [Test 15] Subtype with inherited Comparable<Animal> ? Dog extends Animal
+ *   PASS - Size = 3
+ *   PASS - Contains Rex
+ *   PASS - Does not contain Fido
  *   InOrder (Expected: Buddy Max Rex): Buddy Max Rex 
  * 
  * ========== All Tests Complete ==========
