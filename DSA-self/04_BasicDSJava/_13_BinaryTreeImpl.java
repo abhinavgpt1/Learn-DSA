@@ -253,7 +253,7 @@ class MyBinaryTree<T extends Comparable<T>> {
     }
 
     public void insert(T data) {
-        // level order insert - creates a full tree if used n times
+        // level order insert - creates a complete tree (and not a full tree where every node has either 0 or 2 children)
         MyBinaryTreeNode<T> newNode = new MyBinaryTreeNode<>(data);
         if (root == null) {
             root = newNode;
@@ -623,5 +623,153 @@ public class _13_BinaryTreeImpl {
         System.out.println("Perfect 7-node tree height: " + tree10.height() + " (Expected: 3)");
         
         System.out.println("\n========== All Tests Complete ==========");
+
+        /**
+         * Definitions:
+         * Tree - A hierarchical data structure consisting of nodes connected by edges,
+         * with a root node and no cycles.
+         * 
+         * Binary Tree - A tree in which each node has at most two children, called the
+         * left and right child.
+         */
     }
 }
+
+/**
+ * Output:
+ * ========== Binary Tree Test Suite ==========
+ * 
+ * [Test 1] Create tree from array
+ * Size: 5 (Expected: 5)
+ * Height: 3 (Expected: 3)
+ * Is empty: false (Expected: false)
+ * 
+ * [Test 2] Tree traversals
+ * PreOrder:  1 2 4 5 3 
+ * InOrder:   4 2 5 1 3 
+ * PostOrder: 4 5 2 3 1 
+ * LevelOrder: 1 
+ * 2 3 
+ * 4 5 
+ * 
+ * [Test 3] Strategy pattern usage
+ * Using PreOrder Strategy: 1 2 4 5 3 
+ * Using InOrder Strategy: 4 2 5 1 3 
+ * 
+ * [Test 4] Contains operation
+ * Contains 3: true (Expected: true)
+ * Contains 4: true (Expected: true)
+ * Contains 10: false (Expected: false)
+ * 
+ * [Test 5] Insert operation
+ * Size after 2 inserts: 7 (Expected: 7)
+ * Contains 6: true (Expected: true)
+ * Contains 7: true (Expected: true)
+ * Level Order after insert: 1 
+ * 2 3 
+ * 4 5 6 7 
+ * 
+ * [Test 6] Delete operation
+ * Size after delete: 6 (Expected: 6)
+ * Contains 4: false (Expected: false)
+ * Level Order after delete: 1 
+ * 2 3 
+ * 7 5 6 
+ * 
+ * [Test 7] Delete non-existent element
+ * Size unchanged: true (Expected: true)
+ * 
+ * [Test 8] Clear operation
+ * Size after clear: 0 (Expected: 0)
+ * Height after clear: 0 (Expected: 0)
+ * Is empty: true (Expected: true)
+ * 
+ * [Test 9] Build tree with inserts
+ * Size: 4 (Expected: 4)
+ * Level Order: 10 
+ * 20 30 
+ * 40 
+ * 
+ * [Test 10] Single node tree
+ * Size: 1 (Expected: 1)
+ * Height: 1 (Expected: 1)
+ * Contains 42: true (Expected: true)
+ * Size after delete: 0 (Expected: 0)
+ * Is empty: true (Expected: true)
+ * 
+ * [Test 11] Perfect binary tree
+ * Size: 7 (Expected: 7)
+ * Height: 3 (Expected: 3)
+ * PreOrder: 1 2 4 5 3 6 7 
+ * 
+ * [Test 12] BST validation (Integer)
+ * Is tree4 a BST: false (Expected: false)
+ * Is bst a BST: true (Expected: true)
+ * InOrder of BST (should be sorted): 1 2 3 4 5 6 7 
+ * 
+ * [Test 13] BST validation (Double)
+ * Is doubleBST a BST: true (Expected: true)
+ * InOrder of Double BST (sorted): 1.1 2.3 3.4 4.5 5.5 6.7 7.8 
+ * Is doubleTree a BST: false (Expected: false)
+ * 
+ * [Test 14] BST validation (Short)
+ * Is shortBST a BST: true (Expected: true)
+ * InOrder of Short BST (sorted): 10 20 30 40 50 60 70 
+ * Is shortTree a BST: false (Expected: false)
+ * 
+ * [Test 15] Delete root node
+ * Before delete root: 10 
+ * 20 30 
+ * 40 50 
+ * Size after delete root: 4 (Expected: 4)
+ * After delete root: 50 
+ * 20 30 
+ * 40 
+ * 
+ * [Test 16] Delete deepest node
+ * Before delete deepest: 1 
+ * 2 3 
+ * 4 5 
+ * Size after delete: 4 (Expected: 4)
+ * Contains 5: false (Expected: false)
+ * After delete deepest: 1 
+ * 2 3 
+ * 4 
+ * 
+ * [Test 17] Multiple consecutive deletes
+ * Initial size: 7 (Expected: 7)
+ * Initial tree: 1 
+ * 2 3 
+ * 4 5 6 7 
+ * After delete 1, size: 6 (Expected: 6)
+ * After delete 1: 7 
+ * 2 3 
+ * 4 5 6 
+ * After delete 3, size: 5 (Expected: 5)
+ * After delete 3: 7 
+ * 2 6 
+ * 4 5 
+ * After delete 5, size: 4 (Expected: 4)
+ * After delete 5: 7 
+ * 2 6 
+ * 4 
+ * 
+ * [Test 18] Delete until empty
+ * Initial size: 3 (Expected: 3)
+ * After delete 1: 2 (Expected: 2)
+ * After delete 3: 1 (Expected: 1)
+ * After delete 2: 0 (Expected: 0)
+ * Is empty: true (Expected: true)
+ * 
+ * [Test 19] Delete from empty tree
+ * Size remains: 0 (Expected: 0)
+ * Is empty: true (Expected: true)
+ * 
+ * [Test 20] Height validation
+ * Empty tree height: 0 (Expected: 0)
+ * Single node height: 1 (Expected: 1)
+ * 3-node tree height: 2 (Expected: 2)
+ * Perfect 7-node tree height: 3 (Expected: 3)
+ * 
+ * ========== All Tests Complete ==========
+ */
