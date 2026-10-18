@@ -3,7 +3,7 @@
 // - https://www.geeksforgeeks.org/dsa/insertion-in-an-avl-tree/
 // - https://www.geeksforgeeks.org/dsa/deletion-in-an-avl-tree/
 //
-// Comparison with Red Black Tree:
+// AVL vs Red Black Tree:
 // The AVL tree and other self-balancing search trees like Red Black are useful to get all basic operations done in O(logn) time.
 // The AVL trees are more balanced compared to Red-Black Trees, but they may cause more rotations during insertion and deletion.
 // So if your application involves many frequent insertions and deletions, then Red Black trees should be preferred.
@@ -120,6 +120,14 @@ class MyAVLTree<T extends Comparable<? super T>> extends MyBinarySearchTree<T> {
         return node;
     }
 
+    private T findMax(MyBinarySearchTreeNode<T> node) {
+        if (node == null)
+            return null;
+        if (node.right != null)
+            return findMax(node.right);
+        return node.data;
+    }
+
     private MyAVLTreeNode<T> delete(MyAVLTreeNode<T> node, T key) {
         // delete like normal BST
         if (node == null) {
@@ -145,7 +153,7 @@ class MyAVLTree<T extends Comparable<? super T>> extends MyBinarySearchTree<T> {
                 // PTR: no size-- as it is done in the recursive delete call above
             }
         }
-        if (node == null) {
+        if (node == null) { // IMP. : missing in BST impl.
             return node;
         }
 
@@ -190,7 +198,7 @@ class MyAVLTree<T extends Comparable<? super T>> extends MyBinarySearchTree<T> {
     // -----------------Public methods-----------------
 
     // PTR: must override the no-arg height() from MyBinarySearchTree.
-    // The parent's public height() calls its own PRIVATE height(node) — private methods
+    // The parent's public height() calls its own PRIVATE height(node) - private methods
     // are not polymorphic, so without this override t.height() would bypass the O(1)
     // stored field above and fall back to O(n) recursion in the parent.
     @Override
@@ -215,9 +223,9 @@ public class _15_AVLImpl {
 
     static void check(boolean condition, String msg) {
         if (condition) {
-            System.out.println("  PASS — " + msg);
+            System.out.println("  PASS - " + msg);
         } else {
-            System.out.println("  FAIL — " + msg);
+            System.out.println("  FAIL - " + msg);
             failures++;
         }
     }
@@ -242,7 +250,7 @@ public class _15_AVLImpl {
             check(t.isBalanced(), "balanced");
         }
 
-        // ── 2. Ascending insert — triggers RR (left) rotations ───────────────
+        // ── 2. Ascending insert - triggers RR (left) rotations ───────────────
         System.out.println("\n2. Ascending insert 1-7 (RR rotations)");
         {
             MyAVLTree<Integer> t = new MyAVLTree<>();
@@ -255,7 +263,7 @@ public class _15_AVLImpl {
             t.inOrder();
         }
 
-        // ── 3. Descending insert — triggers LL (right) rotations ─────────────
+        // ── 3. Descending insert - triggers LL (right) rotations ─────────────
         System.out.println("\n3. Descending insert 7-1 (LL rotations)");
         {
             MyAVLTree<Integer> t = new MyAVLTree<>();
@@ -302,7 +310,7 @@ public class _15_AVLImpl {
         System.out.println("\n7. Delete node with one child");
         {
             MyAVLTree<Integer> t = new MyAVLTree<>();
-            // After inserting 4,2,6,1 — node 2 has only left child 1
+            // After inserting 4,2,6,1 - node 2 has only left child 1
             for (int v : new int[]{4, 2, 6, 1}) t.insert(v);
             t.delete(2);
             check(!t.contains(2), "2 removed");
@@ -382,8 +390,8 @@ public class _15_AVLImpl {
             t.inOrder();
         }
 
-        // ── 14. Large ascending insert — stress AVL height bound ──────────────
-        System.out.println("\n14. Large ascending insert (n=20) — height bound");
+        // ── 14. Large ascending insert - stress AVL height bound ──────────────
+        System.out.println("\n14. Large ascending insert (n=20) - height bound");
         {
             MyAVLTree<Integer> t = new MyAVLTree<>();
             for (int i = 1; i <= 20; i++) t.insert(i);
@@ -409,10 +417,10 @@ public class _15_AVLImpl {
             check(t.isBalanced(), "balanced after delete");
         }
 
-        // ── 16. Subtype — Dog inherits Comparable<Animal>, not Comparable<Dog> ──
-        System.out.println("\n16. Subtype test — Dog extends Animal implements Comparable<Animal>");
+        // ── 16. Subtype - Dog inherits Comparable<Animal>, not Comparable<Dog> ──
+        System.out.println("\n16. Subtype test - Dog extends Animal implements Comparable<Animal>");
         {
-            // Animal implements Comparable<Animal>; Dog only inherits that — it does NOT
+            // Animal implements Comparable<Animal>; Dog only inherits that - it does NOT
             // implement Comparable<Dog>. The <? super T> bound lets MyBinarySearchTree<Dog>
             // and MyAVLTree<Dog> compile and work correctly.
             class Animal implements Comparable<Animal> {
@@ -478,7 +486,7 @@ public class _15_AVLImpl {
             t.inOrder();
         }
 
-        // ── 19. update() — inherited from MyBinarySearchTree ─────────────────
+        // ── 19. update() - inherited from MyBinarySearchTree ─────────────────
         System.out.println("\n19. update() inherited from BST");
         {
             MyAVLTree<Integer> t = new MyAVLTree<>();
@@ -493,147 +501,159 @@ public class _15_AVLImpl {
         }
 
         System.out.println(failures == 0 ? "\nAll tests PASSED" : "\n" + failures + " test(s) FAILED");
+
+        /**
+         * Definitions:
+         * AVL Tree: A self-balancing Binary Search Tree (BST) in which the height
+         * difference between the left and right subtrees of every node is at most 1,
+         * maintaining \(O(\log n)\) search, insertion, and deletion time.
+         * - AVL stands for Adelson-Velsky and Landis, named after the two computer
+         * scientists who introduced the AVL tree in 1962.
+         */
     }
 }
 
 /**
+ * Run command:
+ * 04_BasicDSJava>javac _15_AVLImpl.java _14_BinarySearchTreeImpl.java
+ * 04_BasicDSJava>java _15_AVLImpl
+ * 
  * Output:
- * -------
  * 1. Single element
- *   PASS — size = 1
- *   PASS — height = 1
- *   PASS — not empty
- *   PASS — contains 10
- *   PASS — contains null → false
- *   PASS — balanced
+ *   PASS - size = 1
+ *   PASS - height = 1
+ *   PASS - not empty
+ *   PASS - contains 10
+ *   PASS - contains null ? false
+ *   PASS - balanced
  * 
  * 2. Ascending insert 1-7 (RR rotations)
- *   PASS — size = 7
- *   PASS — balanced after ascending insert
- *   PASS — height within AVL bound
- *   PASS — contains 1
- *   PASS — contains 2
- *   PASS — contains 3
- *   PASS — contains 4
- *   PASS — contains 5
- *   PASS — contains 6
- *   PASS — contains 7
+ *   PASS - size = 7
+ *   PASS - balanced after ascending insert
+ *   PASS - height within AVL bound
+ *   PASS - contains 1
+ *   PASS - contains 2
+ *   PASS - contains 3
+ *   PASS - contains 4
+ *   PASS - contains 5
+ *   PASS - contains 6
+ *   PASS - contains 7
  *   InOrder (Expected: 1 2 3 4 5 6 7): 1 2 3 4 5 6 7 
  * 
  * 3. Descending insert 7-1 (LL rotations)
- *   PASS — size = 7
- *   PASS — balanced after descending insert
- *   PASS — height within AVL bound
+ *   PASS - size = 7
+ *   PASS - balanced after descending insert
+ *   PASS - height within AVL bound
  *   InOrder (Expected: 1 2 3 4 5 6 7): 1 2 3 4 5 6 7 
  * 
  * 4. LR rotation (3, 1, 2)
- *   PASS — balanced after LR case
- *   PASS — height = 2 after LR rotation
- *   PASS — size = 3
+ *   PASS - balanced after LR case
+ *   PASS - height = 2 after LR rotation
+ *   PASS - size = 3
  * 
  * 5. RL rotation (1, 3, 2)
- *   PASS — balanced after RL case
- *   PASS — height = 2 after RL rotation
- *   PASS — size = 3
+ *   PASS - balanced after RL case
+ *   PASS - height = 2 after RL rotation
+ *   PASS - size = 3
  * 
  * 6. Delete leaf
- *   PASS — 1 removed
- *   PASS — size = 6
- *   PASS — balanced after leaf delete
+ *   PASS - 1 removed
+ *   PASS - size = 6
+ *   PASS - balanced after leaf delete
  * 
  * 7. Delete node with one child
- *   PASS — 2 removed
- *   PASS — 1 still present
- *   PASS — size = 3
- *   PASS — balanced after one-child delete
+ *   PASS - 2 removed
+ *   PASS - 1 still present
+ *   PASS - size = 3
+ *   PASS - balanced after one-child delete
  * 
  * 8. Delete node with two children
- *   PASS — 4 removed
- *   PASS — size = 6
- *   PASS — balanced after two-child delete
- *   PASS — contains 1
- *   PASS — contains 2
- *   PASS — contains 3
- *   PASS — contains 5
- *   PASS — contains 6
- *   PASS — contains 7
+ *   PASS - 4 removed
+ *   PASS - size = 6
+ *   PASS - balanced after two-child delete
+ *   PASS - contains 1
+ *   PASS - contains 2
+ *   PASS - contains 3
+ *   PASS - contains 5
+ *   PASS - contains 6
+ *   PASS - contains 7
  * 
  * 9. Delete causing rebalance
- *   PASS — balanced after cascading deletes
- *   PASS — size = 4
- *   PASS — height within AVL bound
+ *   PASS - balanced after cascading deletes
+ *   PASS - size = 4
+ *   PASS - height within AVL bound
  * 
  * 10. Delete non-existent key
- *   PASS — size unchanged
- *   PASS — still balanced
- *   PASS — original elements intact
+ *   PASS - size unchanged
+ *   PASS - still balanced
+ *   PASS - original elements intact
  * 
  * 11. Delete all elements
- *   PASS — tree is empty
- *   PASS — size = 0
- *   PASS — height = 0
+ *   PASS - tree is empty
+ *   PASS - size = 0
+ *   PASS - height = 0
  * 
  * 12. Clear
- *   PASS — empty after clear
- *   PASS — size = 0
- *   PASS — height = 0 after clear
- *   PASS — can insert after clear
+ *   PASS - empty after clear
+ *   PASS - size = 0
+ *   PASS - height = 0 after clear
+ *   PASS - can insert after clear
  * 
  * 13. Duplicate insert (goes to left subtree, size grows)
- *   PASS — size = 3 (duplicates stored)
- *   PASS — balanced
+ *   PASS - size = 3 (duplicates stored)
+ *   PASS - balanced
  *   InOrder (Expected: 5 5 5): 5 5 5 
  * 
- * 14. Large ascending insert (n=20) — height bound
- *   PASS — size = 20
- *   PASS — balanced
- *   PASS — height within AVL bound for n=20
+ * 14. Large ascending insert (n=20) - height bound
+ *   PASS - size = 20
+ *   PASS - balanced
+ *   PASS - height within AVL bound for n=20
  * 
  * 15. String element type
- *   PASS — balanced string tree
- *   PASS — contains apple
- *   PASS — not contains fig
+ *   PASS - balanced string tree
+ *   PASS - contains apple
+ *   PASS - not contains fig
  *   InOrder (Expected: apple banana cherry date elderberry): apple banana cherry date elderberry 
- *   PASS — banana removed
- *   PASS — size = 4 after delete
- *   PASS — balanced after delete
+ *   PASS - banana removed
+ *   PASS - size = 4 after delete
+ *   PASS - balanced after delete
  * 
- * 16. Subtype test — Dog extends Animal implements Comparable<Animal>
- *   PASS — size = 4
- *   PASS — balanced dog tree
- *   PASS — contains Rex
- *   PASS — not contains Fido
+ * 16. Subtype test - Dog extends Animal implements Comparable<Animal>
+ *   PASS - size = 4
+ *   PASS - balanced dog tree
+ *   PASS - contains Rex
+ *   PASS - not contains Fido
  *   InOrder (Expected: Ace Buddy Max Rex): Ace Buddy Max Rex 
- *   PASS — Buddy removed
- *   PASS — size = 3 after delete
- *   PASS — still balanced after delete
+ *   PASS - Buddy removed
+ *   PASS - size = 3 after delete
+ *   PASS - still balanced after delete
  * 
  * 17. height() on empty tree
- *   PASS — height = 0 on empty tree
- *   PASS — isEmpty
- *   PASS — height = 1 after first insert
+ *   PASS - height = 0 on empty tree
+ *   PASS - isEmpty
+ *   PASS - height = 1 after first insert
  * 
  * 18. createTree() bulk insert
- *   PASS — size = 7
- *   PASS — balanced after createTree
- *   PASS — height within AVL bound
- *   PASS — contains 1
- *   PASS — contains 3
- *   PASS — contains 4
- *   PASS — contains 5
- *   PASS — contains 6
- *   PASS — contains 7
- *   PASS — contains 8
+ *   PASS - size = 7
+ *   PASS - balanced after createTree
+ *   PASS - height within AVL bound
+ *   PASS - contains 1
+ *   PASS - contains 3
+ *   PASS - contains 4
+ *   PASS - contains 5
+ *   PASS - contains 6
+ *   PASS - contains 7
+ *   PASS - contains 8
  *   InOrder (Expected: 1 3 4 5 6 7 8): 1 3 4 5 6 7 8 
  * 
  * 19. update() inherited from BST
- *   PASS — update returned true
- *   PASS — old value 3 gone
- *   PASS — new value 9 present
- *   PASS — size unchanged
- *   PASS — balanced after update
- *   PASS — update of non-existent returns false
- *   PASS — size unchanged after failed update
+ *   PASS - update returned true
+ *   PASS - old value 3 gone
+ *   PASS - new value 9 present
+ *   PASS - size unchanged
+ *   PASS - balanced after update
+ *   PASS - update of non-existent returns false
+ *   PASS - size unchanged after failed update
  * 
  * All tests PASSED
  */
