@@ -506,9 +506,12 @@ public class _15_AVLImpl {
          * Definitions:
          * AVL Tree: A self-balancing Binary Search Tree (BST) in which the height
          * difference between the left and right subtrees of every node is at most 1,
-         * maintaining \(O(\log n)\) search, insertion, and deletion time.
+         * maintaining O(log n) search, insertion, and deletion time.
          * - AVL stands for Adelson-Velsky and Landis, named after the two computer
          * scientists who introduced the AVL tree in 1962.
+         * 
+         * Balanced BST: A Binary Search Tree that keeps its height approx. O(log n)
+         * through balancing, ensuring O(log n) search, insertion, and deletion operations.
          */
     }
 }

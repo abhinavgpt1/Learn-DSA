@@ -263,7 +263,9 @@ public class _07_PriorityQueueImpl {
          * - Min-Heap: The value of the parent node is always less than or equal to the
          * values of its children. The absolute minimum element sits at the root.
          * 
-         * Heap: A complete binary tree data structure that satisfies the heap property.
+         * Heap: A complete binary tree data structure that satisfies the heap property;
+         * each parent is either no greater than its children (min-heap) or no smaller
+         * (max-heap).
          * 
          * Heapify: The process of restoring the heap property in a heap by rearranging
          * elements.
