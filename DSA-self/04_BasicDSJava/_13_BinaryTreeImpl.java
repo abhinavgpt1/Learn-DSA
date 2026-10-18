@@ -393,7 +393,7 @@ class MyBinaryTree<T extends Comparable<T>> {
     }
 }
 
-public class _15_BinaryTreeImpl {
+public class _13_BinaryTreeImpl {
     public static void main(String[] args) {
         System.out.println("========== Binary Tree Test Suite ==========\n");
         

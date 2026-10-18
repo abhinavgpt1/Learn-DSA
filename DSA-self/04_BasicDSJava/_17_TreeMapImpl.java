@@ -669,7 +669,7 @@ class MySortedMap<K, V> {
     }
 }
 
-public class _13_TreeMapWithoutRedBlackImpl {
+public class _17_TreeMapImpl {
 
     static void check(boolean condition, String msg) {
         if (!condition)

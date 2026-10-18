@@ -324,7 +324,7 @@ class MyBinarySearchTree<T extends Comparable<? super T>> {
     }
 }
 
-public class _16_BinarySearchTreeImpl {
+public class _14_BinarySearchTreeImpl {
 
     static void check(boolean condition, String msg) {
         System.out.println("  " + (condition ? "PASS" : "FAIL") + " — " + msg);

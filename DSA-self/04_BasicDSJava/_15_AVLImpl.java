@@ -209,7 +209,7 @@ class MyAVLTree<T extends Comparable<? super T>> extends MyBinarySearchTree<T> {
     }
 }
 
-public class _17_AVLImpl {
+public class _15_AVLImpl {
 
     static int failures = 0;
 

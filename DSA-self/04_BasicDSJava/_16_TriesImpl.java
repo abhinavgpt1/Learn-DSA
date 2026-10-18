@@ -361,7 +361,7 @@ class MyTrie {
     }
 }
 
-public class _18_TriesImpl {
+public class _16_TriesImpl {
     static int failures = 0;
 
     static void check(boolean condition, String msg) {
