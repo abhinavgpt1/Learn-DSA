@@ -31,8 +31,8 @@ import java.util.function.*;
 
 // ── Core  O(1) avg ──────────────────────────────────────────
 // put(key, val)                  -> V        insert/update; returns old val (null if new)
-//                                            insertion-order: does NOT move existing key on re-put
-//                                            access-order:    moves entry to TAIL on re-put
+//                                            Insertion-order: does NOT move existing key on re-put
+//                                            Access-order:    moves entry to TAIL on re-put
 // putIfAbsent(key, val)          -> V        insert if absent; returns existing val (null if new)
 //                                            does NOT trigger access-order move
 // get(key)                       -> V        null if absent; moves to TAIL in access-order
@@ -128,7 +128,7 @@ class MyOrderedMap<K, V> {
 
     private MyHashMap<K, Node> map;
     private Node head, tail;
-    private int size;
+    private int size; // optional since map tracks it
 
     // ── Constructors ────────────────────────────────────────
     MyOrderedMap() {
@@ -342,6 +342,7 @@ class MyOrderedMap<K, V> {
 
     // ── Iteration O(n) ──────────────────────────────────────
     Set<K> keySet() {
+        // or simply, map.keySet();
         Set<K> keys = new LinkedHashSet<>();
         Node current = head;
         while (current != null) {
@@ -559,6 +560,12 @@ public class _10_OrderedMapImpl {
 
         System.out.println("\n" + pass + " passed, " + fail + " failed.");
         if (fail == 0) System.out.println("All tests passed!");
+
+        /**
+         * Definitions:
+         * LinkedHashMap: A hash table-based map that maintains insertion order while
+         * storing key-value pairs.
+         */
     }
 }
 
