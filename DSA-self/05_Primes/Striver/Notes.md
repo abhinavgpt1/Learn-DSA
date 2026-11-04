@@ -9,11 +9,11 @@ Facts about primes:
 - Wilson's Theorem - A natural number n > 1 is a prime if and only if (n-1)! ≡ (n - 1) mod n
 - 2 and 3 are the only consecutive primes
 
-6d +- 1 rule: By the process of elimination, 6k, 6k + 2, 6k + 3, and 6k + 4 are all composite numbers. So, the only possible candidates for primes are of the form 6k + 1 and 6k - 1.
+6k ± 1 rule: By the process of elimination, 6k, 6k + 2, 6k + 3, and 6k + 4 are all composite numbers. So, the only possible candidates for primes are of the form 6k + 1 and 6k - 1.
 Catch: 6k + 1 and 6k - 1 are not guaranteed to be prime. For example, 25 = 6*4 + 1 is not prime. So, we need to check if the number is prime or not.
 
 Wilson's theorem:
-eg. n = 5 => LHS = (n-1)! = 4! = 24, RHS = (n-1) mod n = 4 mod 5 = 4. LHS ≡ RHS.
+e.g. n = 5 => LHS = (n-1)! = 4! = 24, RHS = (n-1) mod n = 4 mod 5 = 4. LHS ≡ RHS.
 
 Prime: 
 - A prime number is a natural number greater than 1 that has exactly two distinct positive factors: 1 and itself.
@@ -32,7 +32,7 @@ boolean checkPrime_basic(int n) {
 ```
 
 Observation: Factors start repeating after sqrt(n). 
-eg. 36
+e.g. 36
 1 * 36 = 36
 2 * 18 = 36
 3 * 12 = 36
@@ -78,11 +78,11 @@ int sumFactors(int n) {
 }
 ```
 
-PTR: 1sec time limit on coding platforms signifies max. 10^8 operations. So, some code of complexity 10^9 would take 10sec.
+PTR: 1 sec time limit on coding platforms signifies max. 10^8 operations. So, some code of complexity 10^9 would take 10 sec.
 
-Q2: Given a number n, find 3 numbers a,b and c such that a*b*c = n and a != b != c != 1. Constraint: 1 < n < 10^9.
+Q2: Given a number n, find 3 numbers a, b, and c such that a*b*c = n and a != b != c != 1. Constraint: 1 < n < 10^9.
 Soln: Since it talks about factors, we can think about finding factors in O(sqrt(n)) complexity.
-Start finding and assigning smallest factor to a. Ensure b is the next smallest factor. This will ensure c is the largest factor.
+Start finding and assigning the smallest factor to a. Ensure b is the next smallest factor. This will ensure c is the largest factor.
 
 ```
 void findFactors(int n) {
@@ -149,8 +149,8 @@ Sieve of Eratosthenes
 
 Question: Given T test cases, for each number in the test case, print Yes/No if that number is a prime or not.
 Constraints: 1 < T < 10^6, 1 < n < 10^6.
-Soln: Using above approach will yield O(T * sqrt(n)) ~= O(10^9) time complexity since we'd be running isPrime logic for each test case. 
-=> 10sec => TLE. To avoid it we can use Sieve of Eratosthenes.
+Soln: Using the above approach will yield O(T * sqrt(n)) ~= O(10^9) time complexity since we'd be running isPrime logic for each test case. 
+=> 10 sec => TLE. To avoid it we can use Sieve of Eratosthenes.
 
 Sieve of Eratosthenes: It's an efficient algorithm used to find all prime numbers up to a given number n.
 1. Take an array isPrime of size n+1 and initialize all entries as true.
@@ -177,7 +177,7 @@ void sieveOfEratosthenes(int n) {
 ```
 Time complexity: O(n * log(log(n)))
 Reason: 
-1. initialization: O(n)
+1. Initialization: O(n)
 2. Iterating over n: O(n)
 3. Inner loop over primes: O(n/2 + n/3 + n/5 + n/7 + ... + n/p) where p is the largest prime <= n. This is a harmonic sum of primes.
 => n/2 + n/3 + n/5 + n/7 + ... + n/p = n * (1/2 + 1/3 + 1/5 + 1/7 + ... + 1/p) = O(n * log(log(sqrt(n)))))
@@ -185,8 +185,8 @@ Reason:
 Total: O(n) + O(n) + O(n * log(log(sqrt(n)))) = O(n * log(log(n)))
 
 Note: If you observe above, 
-1. there's repetition in marking multiple of prime. Why will 5 have to start from 5*2 when the prev. primes have already marked its multiples?
-2. say n = 25, then why should there be an attempt to iterate on 7, 11, 13 i.e. (j = i*i; j<25; j+=i) => 49 < 25, 121 < 25, 169 < 25
+1. There's repetition in marking multiples of a prime. Why will 5 have to start from 5*2 when the prev. primes have already marked its multiples?
+2. Say n = 25, then why should there be an attempt to iterate on 7, 11, 13 i.e. (j = i*i; j<25; j+=i) => 49 < 25, 121 < 25, 169 < 25
 
 ```
 void sieveOfEratosthenes(int n) {
@@ -207,7 +207,7 @@ void sieveOfEratosthenes(int n) {
 
 So, the earlier problem of T test cases can be solved in O(T) + O(n * log(log(n))) ~= O(10^6) which is >> O(T * sqrt(n)) ~= O(10^9).
 
-PTR: Generally, make max. size array (in java) as follows:
+PTR: Generally, make max. size array (in Java) as follows:
 For heap memory (-Xmx) 256 MB:
 - int[]: 3*10^7
 - long[]: 1.5*10^7
@@ -220,9 +220,9 @@ For heap memory (-Xmx) 512 MB:
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 Q3: Find Kth prime number. Given Q queries, for each query print the Kth prime number. Constraints: 1 < Q < 5 * 10^4, 1 < K < 5 * 10^6.
-Soln: We can use sieve and collect all primes in an array. But how do we know N i.e. the limit till which we need to run sieve?
-1. Figure that limit N.
-2. Run sieve till N and collect all primes in an array.
+Soln: We can use the sieve and collect all primes in an array. But how do we know N, i.e. the limit till which we need to run the sieve?
+1. Figure out the limit N.
+2. Run the sieve till N and collect all primes in an array.
 ```
 void sieveOfEratosthenes() {
     int n = 100_000_000; // 10^8
@@ -283,8 +283,8 @@ void findKthPrime(int[] queries) {
 }
 ```
 
-Q4: Given Q queries, for each query n, print the count of numbers in range [1, 10^6] which have n as minimum prime factor. Constraints: 1 < Q < 10^6, 1 < n < 10^6. N is always a prime number.
-Soln: We can use sieve to keep a count of multiples a prime marks. Hence, that'll help us answer the queries in O(1) time. So, overall complexity will be O(n * log(log(n))) + O(Q) ~= O(10^6).
+Q4: Given Q queries, for each query n, print the count of numbers in the range [1, 10^6] which have n as the minimum prime factor. Constraints: 1 < Q < 10^6, 1 < n < 10^6. N is always a prime number.
+Soln: We can use the sieve to keep a count of multiples a prime marks. Hence, that'll help us answer the queries in O(1) time. So, overall complexity will be O(n * log(log(n))) + O(Q) ~= O(10^6).
 
 ```
 int[] createSieve() {
@@ -321,8 +321,8 @@ Query problems with factors, primes -> think of sieve
 
 Printing Prime Factorisation
 
-Def: Prime factorization is the process of breaking down a composite number into a product of its constituent prime numbers
-eg. 12 = 2 * 2 * 3
+Def: Prime factorization is the process of breaking down a composite number into a product of its constituent prime numbers.
+e.g. 12 = 2 * 2 * 3
 2 | 12
 --|---
 2 | 6
@@ -362,18 +362,18 @@ void printPrimeFactors_optimized(int n) {
 ```
 Time complexity: O(sqrt(n)) - worst case when n is a perfect square of a prime number.
 
-Issue: if T < 10^6 and n < 10^6, then O(T * sqrt(n)) ~= O(10^9) which is too high. 
+Issue: If T < 10^6 and n < 10^6, then O(T * sqrt(n)) ~= O(10^9) which is too high. 
 
 Fact: Max. number of prime factors of a number n is log(n) base 2.
 Reason: To maximize the number of prime factors, we need to use the smallest possible prime factor (2) repeatedly.
 In general, if a number has k prime factors, then:
-    n >= 2 * 2 * 2...k times = 2^k. eg. 8 = 2*2*2, 12=2*2*3, 30=2*3*5
+    n >= 2 * 2 * 2...k times = 2^k. e.g. 8 = 2*2*2, 12=2*2*3, 30=2*3*5
 Taking log base 2 on both sides:
     log(n) >= k
 => k <= log(n) base 2
 
-To optimise above prime factorization code, we can use sieve to precompute the smallest prime factor for each number in range [1, 10^6].
-Then, we can use the same technique above to find prime factors, it's just that the prime factor to divide with will not run from 2 to n, but according to sieve table. This would result in O(log(n)) time complexity since the max. number of prime factors of a number n is log(n) base 2.
+To optimise the above prime factorization code, we can use the sieve to precompute the smallest prime factor for each number in the range [1, 10^6].
+Then, we can use the same technique above to find prime factors, it's just that the prime factor to divide with will not run from 2 to n, but according to the sieve table. This would result in O(log(n)) time complexity since the max. number of prime factors of a number n is log(n) base 2.
 
 ```
 int[] createSieve() {
@@ -420,16 +420,16 @@ This reduces the time complexity from O(T * sqrt(n)) to O(n * log(log(n))) + O(T
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 Segmented Sieve
-Question: Given T test cases, for each test case print all prime numbers in range [L, R]. 
+Question: Given T test cases, for each test case print all prime numbers in the range [L, R]. 
 Constraints: 1 < T < 10, 1 < L < R < 10^12, R - L < 10^6.
-Soln: We can't have an array of size 10^12. Was it possible, then we'd just iterate from L to R and check if each number is prime or not.
+Soln: We can't have an array of size 10^12. Were it possible, then we'd just iterate from L to R and check if each number is prime or not.
 
 Segmented Sieve technique:
 1. Find all primes up to sqrt(R) using the Sieve of Eratosthenes - O(sqrt(R)) = O(10^6)
-- We only find the ones which actually mark a mulitples - so just from 2 to sqrt(R), not beyond that.
-2. Create a boolean array of size R - L + 1 and initialize all entries as true. Assume first entry as L...uptil last entry as R.
-3. Pick every prime in step 1. and start marking its multiple in range [L, R] created in step 2.
-- Sieve starts multiple from i*i, so start from i*i minimum. But if i*i < L, then start from the first multiple of that prime in range [L, R].
+- We only find the ones which actually mark multiples - so just from 2 to sqrt(R), not beyond that.
+2. Create a boolean array of size R - L + 1 and initialize all entries as true. Assume the first entry as L up to the last entry as R.
+3. Pick every prime in step 1. and start marking its multiples in the range [L, R] created in step 2.
+- Sieve starts marking multiples from i*i, so start from i*i at minimum. But if i*i < L, then start from the first multiple of that prime in the range [L, R].
 
 ```
 boolean[] createSieve(int n) {
@@ -466,13 +466,13 @@ void solve(int T) {
         boolean[] segmentedSieve = new boolean[R - L + 1];
         Arrays.fill(segmentedSieve, true);
 
-        // Step 3: Pick every prime in step 1. and start marking its multiple in range [L, R] created in step 2.
+        // Step 3: Pick every prime in step 1. and start marking its multiples in the range [L, R] created in step 2.
         for(int prime: primes) {
             int firstMultiple = (L / prime) * prime;
             if (firstMultiple < L)
                 firstMultiple += prime;
             
-            int start = Math.max(firstMultiple, prime*prime); eg. L=110, R=130, prime=11 => start=121
+            int start = Math.max(firstMultiple, prime*prime); // e.g. L=110, R=130, prime=11 => start=121
 
             for(int j=start; j<=R; j+=prime) {
                 segmentedSieve[j - L] = false;
@@ -493,7 +493,7 @@ Time complexity calculation:
 - Sieve creation - O(n * log(log(n))) where n = 10^6 => ~= O(10^6)
 - Step 1: O(sqrt(R)) = O(10^6)
 - Step 2: O(R - L) = O(10^6)
-- Step 3: For every prime you're running (R - p^2)/p ~= R/p. This is same as harmonic sum of primes.
+- Step 3: For every prime you're running (R - p^2)/p ~= R/p. This is the same as the harmonic sum of primes.
     => Time complexity = number of primes + work by each prime = O(10^6) + R * log(log(R)) ~= O(10^6)
 - Step 4: O(R - L) = O(10^6)
 
