@@ -518,8 +518,8 @@ public class _15_AVLImpl {
 
 /**
  * Run command:
- * 04_BasicDSJava>javac _15_AVLImpl.java _14_BinarySearchTreeImpl.java
- * 04_BasicDSJava>java _15_AVLImpl
+ * 01_BasicDSJava>javac _15_AVLImpl.java _14_BinarySearchTreeImpl.java
+ * 01_BasicDSJava>java _15_AVLImpl
  * 
  * Output:
  * 1. Single element

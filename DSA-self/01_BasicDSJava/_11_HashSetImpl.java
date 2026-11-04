@@ -388,8 +388,8 @@ public class _11_HashSetImpl {
 
 /**
  * Run command: 
- * \04_BasicDSJava> javac _09_HashMapImpl.java _11_HashSetImpl.java
- * \04_BasicDSJava> java _11_HashSetImpl
+ * \01_BasicDSJava> javac _09_HashMapImpl.java _11_HashSetImpl.java
+ * \01_BasicDSJava> java _11_HashSetImpl
  * 
  * Output:
  * -------
