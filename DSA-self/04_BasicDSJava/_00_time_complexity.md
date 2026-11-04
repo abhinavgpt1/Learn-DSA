@@ -1,14 +1,31 @@
-Time complexity: The time taken by an algorithm/program to run as a function of the length of the input. Usually expressed as Big O notation.
-Space complexity: The amount of memory used by an algorithm/program as a function of the length of the input.
-Big O notation is a mathematical way to describe how an algorithm’s time or space requirements grow as the input size n increases.
+Definition: Algorithm: An algorithm is a finite sequence of steps or instructions used to solve a particular problem.
+- A problem can have multiple algorithms (solutions).
+- The goal is to choose the most efficient algorithm.
+- An algorithm can be optimized in two ways:
+  - Time Complexity: How efficiently it uses time.
+  - Space Complexity: How efficiently it uses memory.
+Definition: Algorithm Analysis: the process of evaluating an algorithm's efficiency, usually in terms of the time and space it requires as the input size increases.
 
-Why is time complexity so important?
+Important: First make sure the application works correctly. Optimization comes after that.
+
+Definition: Time complexity: The time taken by an algorithm/program to run as a function of the length of the input. Usually expressed as Big O notation.
+Definition: Space complexity: The amount of memory used by an algorithm/program as a function of the length of the input.
+Definition: Big O notation: It's a mathematical way to describe the growth rate of an algorithm's time or space as the input size n increases.
+
+The important thing is not the actual number of seconds an algorithm takes. It is how the number of operations grows as the input size increases.
+
+Q1: Why not measure time in seconds?
+Ans: The same algorithm can take different amounts of time on different machines because of differences in hardware, processors, memory, and other factors.
+
+Instead, we analyze the number of operations relative to the input size.
+
+Q2: Why is time complexity so important?
+Ans:
 - It can clearly distinguish between two different algorithms based on their efficiency.
 - It's independent of the machine on which the algorithm is run.
 - We can get a direct correlation with the length of the input.
 
-Asymptotically means when the input size becomes very large.
-Example
+Asymptotically means when the input size becomes very large. For example,
 Suppose two algorithms take:
 - Algorithm A: (3n + 10) operations
 - Algorithm B: (n^2 + 2n) operations
