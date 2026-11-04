@@ -375,8 +375,8 @@ public class _12_OrderedSetImpl {
 
 /**
  * Run command: 
- * \01_BasicDSJava> javac _12_OrderedSetImpl.java _10_OrderedMapImpl.java
- * \01_BasicDSJava> java _12_OrderedSetImpl
+ * \01_Basic_DS_Java> javac _12_OrderedSetImpl.java _10_OrderedMapImpl.java
+ * \01_Basic_DS_Java> java _12_OrderedSetImpl
  * 
  * Output:
  * ── add / contains / size ──
