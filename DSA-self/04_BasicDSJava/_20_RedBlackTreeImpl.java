@@ -54,26 +54,8 @@
 //   • Key type doesn't implement Comparable and you have no Comparator
 // ============================================================
 
-import java.util.OrderedMap;
-import java.util.LinkedList;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-
-public class TreeMapImpl {
+public class _20_RedBlackTreeImpl {
     public static void main(String[] args) {
-        TreeSet<Integer> treeSet = new TreeSet<>();
-        treeSet.retainAll(java.util.Collections.singleton(5));
-        TreeMap<Integer, String> treeMap = new TreeMap<>();
-        treeMap.get(5);
-        treeMap.comparator();
-        HashSet<Integer> hashSet = new HashSet<>();
-        hashSet.poll();
-        Deque<Integer> deque = new LinkedList<>();
-        deque.pop();
+        // TODO
     }
 }
