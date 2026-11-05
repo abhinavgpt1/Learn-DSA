@@ -4,10 +4,10 @@ ref: https://www.youtube.com/playlist?list=PLDzeHZWIZsTp4pb_WBRahP1tnipLuX9qM
 
 Definition: Sorting algorithm: An algorithm that puts elements of a given dataset in a specific order.
 Definition: Stable and Unstable algorithm: A stable sorting algorithm maintains the relative order of identical elements (elements with equal keys) after sorting, whereas an unstable sorting algorithm does not guarantee that this original order will be preserved.
-Definition: In-place sorting: An in-place sorting algorithm is a sorting method that rearranges the elements within the original data structure itself, requiring a minimal, constant amount of extra memory (usually O(1) auxiliary space complexity)
+Definition: In-place sorting: An in-place sorting algorithm is a sorting method that rearranges the elements within the original data structure itself, requiring a minimal, constant amount of extra memory (usually O(1) auxiliary space complexity).
 
 1. Selection Sort
-- Definition: The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning.
+- Definition: The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from the unsorted part and putting it at the beginning.
 ```
 void swap(int arr[], int i, int j) {
     int temp = arr[i];
@@ -31,17 +31,17 @@ void selectionSort(int arr[], int n) {
 - Space Complexity: O(1)
 - Time Complexity:
     - Best Case: O(n^2)
-        - Even if the array is sorted, you will find the min element in O(n) time.
+        - Even if the array is sorted, finding the min element takes O(n) time.
     - Average Case: O(n^2)
     - Worst Case: O(n^2)
 - Stability: Unstable
-    - eg. [4,5,4,1] -> round 1: swaps 1 and 4, thus moving 1st 4 next to 2nd 4.
+    - eg. [4A,5,4B,1] -> round 1 swaps 1 and 4A, thus moving 4A after 4B.
 - In-place: Yes
 
 Use case: For small arrays
 
 2. Bubble Sort
-- Definition: The bubble sort algorithm sorts an array by repeatedly swapping the adjacent elements if they are in wrong order.
+- Definition: The bubble sort algorithm sorts an array by repeatedly swapping the adjacent elements if they are in the wrong order.
 ```
 void swap(int arr[], int i, int j) {
     int temp = arr[i];
@@ -75,8 +75,8 @@ void bubbleSort(int arr[], int n) {
 - In-place: Yes
 
 3. Insertion Sort
-- Definition: The insertion sort algorithm sorts an array by repeatedly inserting an element from unsorted part to its correct position in sorted part.
-FYI, you shift the elements in this algorithm, and not swap.
+- Definition: The insertion sort algorithm sorts an array by repeatedly inserting an element from the unsorted part into its correct position in the sorted part.
+FYI, you shift the elements in this algorithm, not swap.
 ```
 void insertionSort(int arr[], int n) {
     for(int i=1; i<n; i++) {
@@ -87,7 +87,7 @@ void insertionSort(int arr[], int n) {
             j--;
         }
         
-        // can optimise the assignment by checking if j != i - 1
+        // can optimise this assignment by checking if j != i - 1
         arr[j+1] = key;
     }
 }
@@ -95,7 +95,7 @@ void insertionSort(int arr[], int n) {
 - Space Complexity: O(1)
 - Time Complexity:
     - Best Case: O(n)
-        - Exit the loop if arr[i-1] <= arr[i], i.e. no swap at 1st iteration of round i
+        - Exit the loop if arr[i-1] <= arr[i], i.e. no swap at the first iteration of round i
     - Average Case: O(n^2)
     - Worst Case: O(n^2)
 - Stability: Stable
@@ -142,7 +142,7 @@ void mergeSort(int[] arr) {
 - Space Complexity: O(n)
 - Time Complexity:
     - Best Case: O(n log n)
-        - You can't skip the merge which takes O(n) everytime
+        - You can't skip the merge which takes O(n) every time
     - Average Case: O(n log n)
     - Worst Case: O(n log n)
 - Stability: Stable
@@ -157,7 +157,7 @@ Use case:
 
 Algo:
 - Pick the first element of array as pivot
-- Partition creation process: Put the pivot at its correct position, and move the smaller elements to the left, and greater or equal elements to the right.
+- Partition creation process: put the pivot at its correct position, move the smaller elements to the left, and the greater or equal elements to the right.
 - Repeat the process for left and right sub-arrays
 
 ```
@@ -205,26 +205,26 @@ void quickSort(int[] arr) {
 ```
 - Space Complexity: O(log n)
     - Worst case: O(n)
-        - Reason: if array is sorted, the stack space will be O(n)
+        - Reason: if the array is sorted, the stack space will be O(n)
 - Time Complexity:
     - Best Case: O(n log n)
-        - Reason: even if array is sorted, you will calculate cnt in O(n)
+        - Reason: even if the array is sorted, you will calculate cnt in O(n)
     - Average Case: O(n log n)
     - Worst Case: O(n^2)
-        - Reason: if array is sorted in decreasing order, cnt finding happens in O(n), and every iteration results in (n-i, 0) partition resulting in (n-1), (n-2), ..., 1 operations each having cnt finding => O(n^2).
+        - Reason: if the array is sorted in decreasing order, cnt finding takes O(n), and every iteration results in an (n-i, 0) partition, leading to (n-1), (n-2), ..., 1 operations each with cnt finding(O(n)) => O(n^2).
 - Stability: Unstable
-    - Even with optimised partition logic. eg. [3A, 2, 3B, 1]. cnt = 0 => 1 goes to its actual place, hence swaps with 3A.
+    - Even with the optimised partition logic. eg. [3A, 2, 3B, 1]. cnt = 0 => 1 goes to its correct place, and swaps with 3A.
 - In-place: No
 Use case: 
 - For large arrays
-- Sorting of array is efficient rather than linked list since there's an overhead to traverse the LL to find pivot and rearrange elements. Merge sort loses in case of arrays due to O(N) space complexity.
+- Sorting arrays is more efficient than linked lists since there's an overhead to traverse the LL to find the pivot and rearrange elements. Merge sort loses for arrays due to O(N) space complexity.
 
 Optimised partition logic:
 - Consider the last element as pivot
 - Take a pointer (smallElementPointer) at which the smaller elements are to be placed
 - Traverse the array from start to end-1
-    - If current element is smaller than pivot, swap it with element at smallElementPointer and increment smallElementPointer
-- Swap pivot with element at smallElementPointer
+    - If current element is smaller than pivot, swap it with the element at smallElementPointer and increment smallElementPointer
+- Swap the pivot with the element at smallElementPointer
 ```
 int partition(int[] arr, int start, int end) {
     int pivot = arr[end];
@@ -239,4 +239,4 @@ int partition(int[] arr, int start, int end) {
     return smallElementPointer;
 }
 ```
-This doesn't change the best and worst time complexity, because partition() process is still O(n) in every case.
+This doesn't change the best and worst time complexity, because the partition() process is still O(n) in every case.

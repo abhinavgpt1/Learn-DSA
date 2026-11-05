@@ -5,7 +5,10 @@ ref: https://www.youtube.com/playlist?list=PL_z_8CaSLPWeYfhtuKHj-9MpYb6XQJ_f2
 - In any problem where you see the word "sorted", check if Binary Search can be used. Generally a sorted collection is given to use BS only.
 - BS on answer is a good variation
 
-- Do recursion/iteration till start >= end
+- Base/Terminating condition in 
+    - recursion BS: start > end
+    - iteration BS: start >= end
+    - Both approaches hence emphasizes on processing the last element where start = end.
 
 - Calculate mid as start + (end - start) / 2
     - QQ: Why?
