@@ -1,2 +1,0 @@
-https://www.geeksforgeeks.org/implementing-upper_bound-and-lower_bound-in-c/
-Try with dry run, the above soln. works liek charm

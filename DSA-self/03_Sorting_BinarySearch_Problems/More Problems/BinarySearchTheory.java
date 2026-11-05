@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.Collections;
 
+// Context: https://www.geeksforgeeks.org/implementing-upper_bound-and-lower_bound-in-c/
+
 class BinarySearch {
     // SonarQube rule java:S1118 flags a class with only static memebers
     // and asks you to explicitly add a private constructor to prevent instantiation since new BinarySearch() makes no semantic sense.
@@ -27,11 +29,7 @@ class BinarySearch {
 }
 
 class LowerBound {
-    // SonarQube rule java:S1118 flags a class with only static memebers
-    // and asks you to explicitly add a private constructor to prevent instantiation since new LowerBound() makes no semantic sense.
-    private LowerBound() {
-        /* This utility class should not be instantiated */
-    }
+    private LowerBound() {}
 
     private static int lowerBoundHelper(int[] arr, int start, int end, int k) {
         if (start > end) {
@@ -56,11 +54,7 @@ class LowerBound {
 }
 
 class UpperBound {
-    // SonarQube rule java:S1118 flags a class with only static memebers
-    // and asks you to explicitly add a private constructor to prevent instantiation since new UpperBound() makes no semantic sense.
-    private UpperBound() {
-        /* This utility class should not be instantiated */
-    }
+    private UpperBound() {}
 
     private static int upperBoundHelper(int[] arr, int start, int end, int k) {
         if (start > end) {
