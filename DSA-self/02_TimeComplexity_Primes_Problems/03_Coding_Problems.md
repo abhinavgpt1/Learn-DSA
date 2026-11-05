@@ -3,8 +3,10 @@
 1. https://practice.geeksforgeeks.org/problems/addition-of-two-numbers0812/1
 2. https://practice.geeksforgeeks.org/problems/prime-number2314/1
 3. https://practice.geeksforgeeks.org/problems/lcm-and-gcd4516/1
+    - Do by Euclidean algorithm to achieve log(min(a,b)) time
 4. https://practice.geeksforgeeks.org/problems/count-squares3649/1
 5. https://practice.geeksforgeeks.org/problems/count-digits5716/1
+    - Check editoral for better approach. Teaches number represention in other than decimal form
 6. https://practice.geeksforgeeks.org/problems/armstrong-numbers2727/1
 7. https://practice.geeksforgeeks.org/problems/print-table0303/1
 8. https://practice.geeksforgeeks.org/problems/reversing-the-equation2205/1

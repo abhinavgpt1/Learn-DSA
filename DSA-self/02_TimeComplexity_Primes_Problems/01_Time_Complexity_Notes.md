@@ -64,6 +64,8 @@ Core Asymptotic Bounds
 | Euclidean Algorithm (Iterative) | `O(log(min(a, b)))` | `O(1)` |
 | Euclidean Algorithm (Recursive) | `O(log(min(a, b)))` | `O(1)` |
 
+The reason for log(min(a, b)) is that the smaller number decreases by half of its value in every iteration.
+
 ---
 
 ### Searching & Sorting Algorithms
