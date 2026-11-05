@@ -135,9 +135,13 @@ Soln:
 2. Check if firstOcc == -1, return 0. The following formula doesn't work if k is not present in the array.
 3. count of k = lastOcc - firstOcc + 1
 
-Q6: Find number of times a sorted array is rotated.
+Q6: Find number of times a sorted array is (right) rotated.
 Soln: Number of times the array is rotated = index of the min element. 
 The min element is defined as the element which has both neighbours greater than it.
+PTR: 
+- if array is left rotated, the ans will be n - ans.
+- This soln. works only when array has unique elements.
+
 
 ```
 // ref: https://www.geeksforgeeks.org/dsa/find-rotation-count-rotated-sorted-array/
@@ -273,10 +277,14 @@ After that, the infinite array aspect doesn't matter anymore.
 ```
 int bsInfinite(int arr[], int k) {
     int start = 0, end = 1;
+    // O(log(k))
     while (k > arr[end]) {
         start = end;
         end *= 2;
     }
+    // start = 2^(y-1), end = 2^y, where 2^(y-1) <= k <= 2^y. Range of BS (n) = end - start = 2^(y-1)
+    // Time complexity = O(logn). Here, n can be safely replaced with k since n = 2^(y-1) <=k
+    // So, time complexity = O(logk)
     return bs(arr, start, end, k);
 }
 ```
@@ -336,7 +344,7 @@ Q15: (concept) Binary search on answer
 Soln: Sorted -> BS. Unsorted -> BS on answer. Just like in BS, we had a criterion to reject one half, same happens here too. So, 1) we need to check if mid element is ans or not. 2) if not on what criteria should we move left / right.
 eg. Peak element problem (Q16)
 
-Q16: Peak Element. Given an unsorted array, find any peak element. An element is peak if it is greater than its neighbours. Neighbours of end elements are only the elements next to them. So, if an end element is greater than the element next to it, then it is a peak element. Return any peak element index. FYI, a bitonic array != a rotated sorted array.
+Q16: Peak Element. Given an unsorted array, find any peak element. An element is peak if it is greater than its neighbours. Neighbours of end elements are only the elements next to them. So, if an end element is greater than the element next to it, then it is a peak element. Return any peak element index.
 Soln: Understand intuition how BS works here. 1) is mid peak element or not 2) left or right 3) ans
 1) mid element is peak element if it is greater than mid - 1 (if available) and mid + 1 (if available) elements.
 2) find the promising side eg. 5 10 20 15. For mid = 10, peak element can't be 5. 20 looks more promising. We're not saying that you won't find a peak element in the left half; there can be multiple peak elements.
@@ -371,7 +379,7 @@ int peakElementIndex(int arr[]) {
 }
 ```
 
-Q17: Find max. element in bitonic array. Bitonic array is an array which is monotonically increasing and then monotonically decreasing. A monotonic array is increasing where arr[i] != arr[i+1]. If arr[i] == arr[i+1] for any i, then it is just an increasing array, not monotonically increasing.
+Q17: Find max. element in bitonic array. Bitonic array is an array which is monotonically increasing and then monotonically decreasing. A monotonic array is increasing where arr[i] != arr[i+1]. If arr[i] == arr[i+1] for any i, then it is just an increasing array, not monotonically increasing. FYI, a bitonic array != a rotated sorted array.
 Soln: It is the same as peak element problem i.e. find an element which is greater than its neighbors. Here the max element would be exactly one, unlike peak elements.
 
 Q18: Search element in bitonic array
@@ -417,7 +425,7 @@ int allocateBooks(int arr[], int n, int k) {
     if(k > arr.length)
         return -1;
 
-    long low = Arrays.stream(arr).max().getAsInt();
+    long low = Arrays.stream(arr).max().getAsLong();
     long high = Arrays.stream(arr).mapToLong(i-> (long)i).sum();
     // Arrays.stream(arr).sum(); // integer overflow
     long ans = -1;
@@ -454,5 +462,3 @@ int search(int matrix[][], int n, int m, int k) {
     return -1;
 }
 ```
-
-QQ2: 
