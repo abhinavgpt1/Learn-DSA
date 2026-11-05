@@ -1,4 +1,5 @@
 // source: HW12_SortStringArr_StrategyDP.java in CoreJava Repository
+// FYI, all algos are covered in 01_LoveBabbar_Sorting_Notes.md
 import java.util.Arrays;
 
 interface SortingAlgo {
