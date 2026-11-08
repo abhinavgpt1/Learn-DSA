@@ -20,7 +20,7 @@
 13. https://leetcode.com/problems/smallest-even-multiple/
 14. https://leetcode.com/problems/number-of-common-factors/
 15. https://practice.geeksforgeeks.org/problems/multiply-two-strings/1
-    - Also try with trie data structure
+    - Also try with trie data structure (chatgpt doesn't advise it)
 16. https://practice.geeksforgeeks.org/problems/largest-prime-factor2601/1
     - Check the editorial. You can skip the iteraion on 2 and make the for loop iterate i+=2 instead of i++.
 17. https://leetcode.com/problems/count-primes/
