@@ -1,0 +1,41 @@
+### Coding Problems
+
+1. https://practice.geeksforgeeks.org/problems/wave-array-1587115621/1/?track=amazon-arrays&batchId=192
+2. https://practice.geeksforgeeks.org/problems/equilibrium-point-1587115620/1
+3. https://practice.geeksforgeeks.org/problems/missing-number-in-array1416/1
+    - Check editorial
+4. https://practice.geeksforgeeks.org/problems/missing-number-in-array1416/1
+5. https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/description/
+    - Check editorial for minimal storing and just counting
+6. https://leetcode.com/problems/roman-to-integer/description/
+7. https://leetcode.com/problems/isomorphic-strings/description/
+    - Check editorial for efficient comparison
+8. https://leetcode.com/problems/valid-anagram/description/
+    - Do think both solutions - ascii and unicode
+9. https://leetcode.com/problems/max-chunks-to-make-sorted/
+    - Check for better and short solutions
+10. https://practice.geeksforgeeks.org/problems/minimum-swaps-required-to-bring-all-elements-less-than-or-equal-to-k-together/0
+11. https://leetcode.com/problems/rotate-array/
+12. https://practice.geeksforgeeks.org/problems/sum-of-subarrays/0
+13. https://www.geeksforgeeks.org/sum-of-all-submatrices-of-a-given-matrix/
+14. https://leetcode.com/problems/search-a-2d-matrix-ii/
+15. https://www.geeksforgeeks.org/rearrange-array-arrj-becomes-arri-j/
+16. https://leetcode.com/problems/permutation-in-string/
+17. https://leetcode.com/problems/majority-element-ii/
+    - Check editorial
+18. https://leetcode.com/problems/find-the-duplicate-number/
+19. https://leetcode.com/problems/find-all-duplicates-in-an-array/
+20. https://leetcode.com/problems/maximum-product-subarray/
+21. https://practice.geeksforgeeks.org/problems/max-circular-subarray-sum-1587115620/1
+22. https://practice.geeksforgeeks.org/problems/swapping-pairs-make-sum-equal4142/1
+23. https://practice.geeksforgeeks.org/problems/-rearrange-array-alternately-1587115620/1
+24. https://www.geeksforgeeks.org/find-number-valid-parentheses-expressions-given-length/
+    - Try with Catalan Number
+25. https://leetcode.com/problems/sort-characters-by-frequency/description/
+26. https://www.geeksforgeeks.org/problems/count-number-of-substrings4528/1
+27. https://leetcode.com/problems/reverse-words-in-a-string/description/
+28. https://leetcode.com/problems/string-to-integer-atoi/description/
+29. https://leetcode.com/problems/permutation-sequence/
+30. https://leetcode.com/problems/maximum-gap/
+31. https://leetcode.com/problems/longest-palindromic-substring/description/
+    - Try without DP
